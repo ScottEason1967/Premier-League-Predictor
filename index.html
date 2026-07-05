@@ -654,8 +654,10 @@ async function importCode(){
 /* ============================================================
    TODAY'S PICKS  (read-only; reveals picks only after a gameweek locks)
    ============================================================ */
-const ALLMATCHES=[];
-GWS.forEach(gw=>{ (FIXTURES[gw]||[]).forEach((m,i)=>{ ALLMATCHES.push({gw:gw,idx:i+1,home:m[0],away:m[1],ms:Date.parse(KICKOFFS[gw][i])}); }); });
+// Fixture kickoff overrides come from the sheet (name __FIXTURES__, type "fixtures"),
+// exactly like results do. Pairings are always the baked ones; only kickoffs can move.
+function parseFixOverrides(rows){ const F={}; rows.forEach(r=>{ if(r.type==="fixtures"){ const g=String(r.stage).replace("GW",""); F[g]=Object.assign(F[g]||{}, r.data||{}); } }); return F; }
+function effectiveMatches(FIXOVR){ FIXOVR=FIXOVR||{}; const out=[]; GWS.forEach(gw=>{ const o=FIXOVR[String(gw)]||{}; (FIXTURES[gw]||[]).forEach((m,i)=>{ out.push({gw:gw,idx:i+1,home:m[0],away:m[1],ms:Date.parse(o[i+1]||KICKOFFS[gw][i])}); }); }); return out; }
 function ukDayKey(ms){ return new Date(ms).toLocaleDateString("en-CA",{timeZone:"Europe/London"}); }
 function prettyDay(key){ return new Date(key+"T12:00:00Z").toLocaleDateString("en-GB",{weekday:"long",day:"numeric",month:"long"}); }
 function ukClock(ms){ return new Date(ms).toLocaleTimeString("en-GB",{timeZone:"Europe/London",hour:"2-digit",minute:"2-digit"}); }
@@ -664,11 +666,11 @@ function ukClock(ms){ return new Date(ms).toLocaleTimeString("en-GB",{timeZone:"
 // so nothing reveals in the page source before the deadline.
 function buildTodayModel(rows, nowMs, lockedFn){
   lockedFn=lockedFn||locked;
-  const PREDS={}, RESULTS={};
+  const PREDS={}, RESULTS={}, FIXOVR=parseFixOverrides(rows);
   rows.forEach(r=>{ const g=String(r.stage).replace("GW","");
     if(r.type==="result"){ RESULTS[g]=Object.assign(RESULTS[g]||{}, r.data||{}); }
-    else { (PREDS[r.name]=PREDS[r.name]||{})[g]=Object.assign(PREDS[r.name][g]||{}, r.data||{}); } });
-  const byDay={}; ALLMATCHES.forEach(mt=>{ const k=ukDayKey(mt.ms); (byDay[k]=byDay[k]||[]).push(mt); });
+    else if(r.type==="prediction"){ (PREDS[r.name]=PREDS[r.name]||{})[g]=Object.assign(PREDS[r.name][g]||{}, r.data||{}); } });
+  const byDay={}; effectiveMatches(FIXOVR).forEach(mt=>{ const k=ukDayKey(mt.ms); (byDay[k]=byDay[k]||[]).push(mt); });
   const todayKey=ukDayKey(nowMs);
   const dayKeys=Object.keys(byDay).sort();
   let key = byDay[todayKey] ? todayKey : (dayKeys.filter(k=>k>todayKey)[0] || dayKeys[dayKeys.length-1] || null);
@@ -723,17 +725,17 @@ async function renderToday(){
 function currentMatchGW(){ let last=null; GWS.forEach(g=>{ if(locked(g)) last=g; }); return last||currentGW(); }
 function buildWeekModel(rows, gw, lockedFn){
   lockedFn=lockedFn||locked;
-  const PREDS={}, RESULTS={};
+  const PREDS={}, RESULTS={}, FIXOVR=parseFixOverrides(rows);
   rows.forEach(r=>{ const g=String(r.stage).replace("GW","");
     if(r.type==="result"){ RESULTS[g]=Object.assign(RESULTS[g]||{}, r.data||{}); }
-    else { (PREDS[r.name]=PREDS[r.name]||{})[g]=Object.assign(PREDS[r.name][g]||{}, r.data||{}); } });
-  const gstr=String(gw), lk=lockedFn(gw);
+    else if(r.type==="prediction"){ (PREDS[r.name]=PREDS[r.name]||{})[g]=Object.assign(PREDS[r.name][g]||{}, r.data||{}); } });
+  const gstr=String(gw), lk=lockedFn(gw), ovr=FIXOVR[gstr]||{};
   const players=Object.keys(PREDS).sort((a,b)=>a.localeCompare(b));
   const matches=(FIXTURES[gw]||[]).map((m,i)=>{
     const idx=i+1, res=(RESULTS[gstr]||{})[idx]||null;
     let picks=null;
     if(lk){ picks={}; players.forEach(nm=>{ const p=(PREDS[nm]||{})[gstr]&&(PREDS[nm][gstr]||{})[idx]; if(p)picks[nm]=p; }); }
-    return {gw:gw, idx:idx, home:m[0], away:m[1], ms:Date.parse(KICKOFFS[gw][i]), res:res, locked:lk, picks:picks};
+    return {gw:gw, idx:idx, home:m[0], away:m[1], ms:Date.parse(ovr[idx]||KICKOFFS[gw][i]), res:res, locked:lk, picks:picks};
   });
   return {gw:gw, locked:lk, matches:matches, players:players};
 }
