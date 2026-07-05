@@ -62,10 +62,10 @@
     box-shadow:var(--shadow);margin:2px 0 20px;background:var(--purple) url("premier-league-24-25.jpg") center 35%/cover no-repeat}
 
   /* Tabs */
-  nav.tabs{display:flex;gap:4px;margin:24px 0 22px;background:var(--panel-2);
+  nav.tabs{display:flex;flex-wrap:wrap;gap:4px;margin:24px 0 22px;background:var(--panel-2);
            border:1px solid var(--line);border-radius:14px;padding:5px;position:sticky;top:10px;z-index:20;
            backdrop-filter:blur(8px)}
-  nav.tabs button{flex:1;border:0;background:transparent;color:var(--muted);font-family:inherit;
+  nav.tabs button{flex:1 1 82px;border:0;background:transparent;color:var(--muted);font-family:inherit;
     font-weight:700;font-size:14.5px;padding:11px 8px;border-radius:10px;cursor:pointer;transition:.18s}
   nav.tabs button:hover{color:var(--ink)}
   nav.tabs button.on{background:var(--pink);color:#fff}
@@ -161,6 +161,30 @@
   .lb-row.wk{grid-template-columns:34px 1fr auto;padding:10px 14px}
   .lb-row.wk .pts{font-size:20px}
 
+  /* Today's picks */
+  .today-head{display:flex;align-items:baseline;gap:12px;margin:4px 2px 14px;flex-wrap:wrap}
+  .today-head h3{font-family:"Anton";font-weight:400;font-size:clamp(20px,4vw,28px);margin:0;text-transform:uppercase;letter-spacing:.01em}
+  .today-head span{color:var(--muted);font-size:13px}
+  .mcard{background:var(--panel);border:1px solid var(--line);border-radius:16px;margin-bottom:14px;overflow:hidden;box-shadow:var(--shadow)}
+  .mtop{display:flex;align-items:center;gap:12px;padding:10px 16px;border-bottom:1px solid var(--line);background:var(--panel-2)}
+  .mtime{font-weight:800;font-size:13px}
+  .mmeta{font-size:12px;color:var(--muted)}
+  .tag{margin-left:auto;font-size:11px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;padding:4px 9px;border-radius:999px}
+  .tag.ft{background:rgba(0,255,133,.16);color:#b6ffdc}
+  .fixline{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:10px;padding:13px 16px}
+  .tp-team{display:flex;align-items:center;gap:9px;min-width:0;justify-content:flex-end}
+  .tp-team.a{flex-direction:row-reverse}
+  .tp-team .tn{font-weight:700;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .tp-score{font-family:"Anton";font-size:24px;text-align:center;min-width:56px}
+  .tp-score .v{color:var(--muted);font-size:16px}
+  .picks{display:flex;flex-wrap:wrap;gap:8px;padding:4px 16px 15px}
+  .tp-none,.tp-hidden{color:var(--muted);font-size:13px;padding:2px 0}
+  .chip{font-size:12.5px;font-weight:700;background:var(--panel-2);border:1px solid var(--line-strong);border-radius:999px;padding:5px 11px;white-space:nowrap;color:var(--ink)}
+  .chip .s{font-weight:800;margin-left:6px}
+  .chip.miss{color:var(--muted)}
+  .chip.b3{background:var(--green);color:#12002a;border-color:transparent}
+  .chip.b1{background:var(--cyan);color:#12002a;border-color:transparent}
+  .chip.b0{background:#3a2246;color:var(--muted);border-color:transparent}
   footer{margin-top:38px;padding-top:20px;border-top:1px solid var(--line);color:var(--muted);font-size:12.5px}
   code.k{background:var(--panel-2);border:1px solid var(--line);padding:2px 7px;border-radius:6px;font-size:12px;color:var(--cyan)}
   @media(max-width:640px){
@@ -192,6 +216,8 @@
   <nav class="tabs">
     <button data-tab="predict" class="on">Predict</button>
     <button data-tab="leaderboard">Leaderboard</button>
+    <button data-tab="today">Today's picks</button>
+    <button data-tab="week">This week</button>
     <button data-tab="organiser">Results</button>
   </nav>
 
@@ -233,6 +259,25 @@
     <div class="section-h">Weekly prize table</div>
     <div class="gwbar"><select class="gw" id="lbGwSel" aria-label="Leaderboard gameweek"></select></div>
     <div id="weekPanel"></div>
+  </section>
+
+  <!-- TODAY'S PICKS -->
+  <section class="view" id="today">
+    <div class="btnrow" style="margin-top:0">
+      <button class="btn ghost" id="refreshToday" type="button">Refresh</button>
+      <span class="note">Everyone's predictions for the day's games. Picks appear once that gameweek has locked.</span>
+    </div>
+    <div id="todayOut"></div>
+  </section>
+
+  <!-- THIS WEEK -->
+  <section class="view" id="week">
+    <div class="btnrow" style="margin-top:0">
+      <button class="btn ghost" id="refreshWeek" type="button">Refresh</button>
+      <span class="note">Everyone's predictions for the gameweek, with scores as they land. Picks appear once the week has locked.</span>
+    </div>
+    <div class="gwbar"><select class="gw" id="weekGwSel" aria-label="Which gameweek"></select></div>
+    <div id="weekOut"></div>
   </section>
 
   <!-- ORGANISER / RESULTS -->
@@ -301,6 +346,7 @@ function fmtDeadline(gw){return new Date(DEADLINES[gw]).toLocaleString("en-GB",{
 
 let selGW=currentGW();     // gameweek shown on the Predict tab
 let lbGW=null;             // gameweek shown in the leaderboard week panel
+let wkGW=null;             // gameweek shown in the This week tab
 
 function teamSide(name,away){
   const c=(TEAM_COLORS&&TEAM_COLORS[name])||"#888";
@@ -316,7 +362,7 @@ function buildPlayers(){
 }
 function buildGwSelectors(){
   const maxGW=currentGW();
-  ["#gwSel","#lbGwSel","#resGwSel"].forEach(id=>{
+  ["#gwSel","#lbGwSel","#resGwSel","#weekGwSel"].forEach(id=>{
     const sel=$(id);
     GWS.filter(g=>g<=maxGW).forEach(g=>{const o=document.createElement("option");o.value=g;o.textContent="Gameweek "+g;sel.appendChild(o);});
   });
@@ -606,6 +652,121 @@ async function importCode(){
 }
 
 /* ============================================================
+   TODAY'S PICKS  (read-only; reveals picks only after a gameweek locks)
+   ============================================================ */
+const ALLMATCHES=[];
+GWS.forEach(gw=>{ (FIXTURES[gw]||[]).forEach((m,i)=>{ ALLMATCHES.push({gw:gw,idx:i+1,home:m[0],away:m[1],ms:Date.parse(KICKOFFS[gw][i])}); }); });
+function ukDayKey(ms){ return new Date(ms).toLocaleDateString("en-CA",{timeZone:"Europe/London"}); }
+function prettyDay(key){ return new Date(key+"T12:00:00Z").toLocaleDateString("en-GB",{weekday:"long",day:"numeric",month:"long"}); }
+function ukClock(ms){ return new Date(ms).toLocaleTimeString("en-GB",{timeZone:"Europe/London",hour:"2-digit",minute:"2-digit"}); }
+
+// Pure model so the logic can be tested. Picks are only included for LOCKED gameweeks,
+// so nothing reveals in the page source before the deadline.
+function buildTodayModel(rows, nowMs, lockedFn){
+  lockedFn=lockedFn||locked;
+  const PREDS={}, RESULTS={};
+  rows.forEach(r=>{ const g=String(r.stage).replace("GW","");
+    if(r.type==="result"){ RESULTS[g]=Object.assign(RESULTS[g]||{}, r.data||{}); }
+    else { (PREDS[r.name]=PREDS[r.name]||{})[g]=Object.assign(PREDS[r.name][g]||{}, r.data||{}); } });
+  const byDay={}; ALLMATCHES.forEach(mt=>{ const k=ukDayKey(mt.ms); (byDay[k]=byDay[k]||[]).push(mt); });
+  const todayKey=ukDayKey(nowMs);
+  const dayKeys=Object.keys(byDay).sort();
+  let key = byDay[todayKey] ? todayKey : (dayKeys.filter(k=>k>todayKey)[0] || dayKeys[dayKeys.length-1] || null);
+  if(!key) return {key:null, isFuture:false, matches:[], players:[]};
+  const players=Object.keys(PREDS).sort((a,b)=>a.localeCompare(b));
+  const matches=byDay[key].slice().sort((a,b)=>a.ms-b.ms).map(mt=>{
+    const lk=lockedFn(mt.gw);
+    const res=(RESULTS[mt.gw]||{})[mt.idx]||null;
+    let picks=null;
+    if(lk){ picks={}; players.forEach(nm=>{ const p=(PREDS[nm]||{})[mt.gw]&&(PREDS[nm][mt.gw]||{})[mt.idx]; if(p)picks[nm]=p; }); }
+    return {gw:mt.gw, idx:mt.idx, home:mt.home, away:mt.away, ms:mt.ms, res:res, locked:lk, picks:picks};
+  });
+  return {key:key, isFuture:key!==todayKey, matches:matches, players:players};
+}
+
+async function renderToday(){
+  const host=$("#todayOut");
+  host.innerHTML='<div class="lb-empty">Loading…</div>';
+  let rows;
+  try{ rows=dedupe(await fetchAll()); }
+  catch(e){ host.innerHTML='<div class="lb-empty">'+(SCRIPT_URL?'Could not load the sheet. Try Refresh.':'No sheet connected yet.')+'</div>'; return; }
+  const model=buildTodayModel(rows, Date.now());
+  if(!model.key){ host.innerHTML='<div class="lb-empty">No fixtures found.</div>'; return; }
+  let html='<div class="today-head"><h3>'+prettyDay(model.key)+'</h3><span>'+model.matches.length+(model.matches.length===1?' match':' matches')+(model.isFuture?' · next match day':'')+'</span></div>';
+  model.matches.forEach(mt=>{
+    const ft=!!mt.res;
+    const ch=(TEAM_COLORS[mt.home]||'#888'), ca=(TEAM_COLORS[mt.away]||'#888');
+    const scoreMid = ft ? (mt.res[0]+'<span class="v">&ndash;</span>'+mt.res[1]) : '<span class="v">v</span>';
+    let chips='';
+    if(!mt.locked){ chips='<span class="tp-hidden">Predictions reveal when Gameweek '+mt.gw+' locks, 7:30pm Friday.</span>'; }
+    else if(!model.players.length){ chips='<span class="tp-none">No predictions in yet.</span>'; }
+    else {
+      model.players.forEach(nm=>{
+        const p=mt.picks[nm];
+        if(!p){ chips+='<span class="chip miss">'+nm+'<span class="s">&ndash;</span></span>'; return; }
+        let cls='';
+        if(ft){ const ex=(p[0]===mt.res[0]&&p[1]===mt.res[1]); const sg=(x,y)=>(x>y)-(x<y);
+          cls = ex?' b3':(sg(p[0],p[1])===sg(mt.res[0],mt.res[1])?' b1':' b0'); }
+        chips+='<span class="chip'+cls+'">'+nm+'<span class="s">'+p[0]+'&ndash;'+p[1]+'</span></span>';
+      });
+    }
+    html+='<div class="mcard"><div class="mtop"><span class="mtime">'+ukClock(mt.ms)+' UK</span><span class="mmeta">GW'+mt.gw+'</span>'+(ft?'<span class="tag ft">Full time</span>':'')+'</div>'+
+      '<div class="fixline"><div class="tp-team"><span class="dot" style="background:'+ch+'"></span><span class="tn">'+mt.home+'</span></div><div class="tp-score">'+scoreMid+'</div><div class="tp-team a"><span class="dot" style="background:'+ca+'"></span><span class="tn">'+mt.away+'</span></div></div>'+
+      '<div class="picks">'+chips+'</div></div>';
+  });
+  host.innerHTML=html;
+}
+
+/* ============================================================
+   THIS WEEK  (whole gameweek: everyone's picks + scores)
+   ============================================================ */
+function currentMatchGW(){ let last=null; GWS.forEach(g=>{ if(locked(g)) last=g; }); return last||currentGW(); }
+function buildWeekModel(rows, gw, lockedFn){
+  lockedFn=lockedFn||locked;
+  const PREDS={}, RESULTS={};
+  rows.forEach(r=>{ const g=String(r.stage).replace("GW","");
+    if(r.type==="result"){ RESULTS[g]=Object.assign(RESULTS[g]||{}, r.data||{}); }
+    else { (PREDS[r.name]=PREDS[r.name]||{})[g]=Object.assign(PREDS[r.name][g]||{}, r.data||{}); } });
+  const gstr=String(gw), lk=lockedFn(gw);
+  const players=Object.keys(PREDS).sort((a,b)=>a.localeCompare(b));
+  const matches=(FIXTURES[gw]||[]).map((m,i)=>{
+    const idx=i+1, res=(RESULTS[gstr]||{})[idx]||null;
+    let picks=null;
+    if(lk){ picks={}; players.forEach(nm=>{ const p=(PREDS[nm]||{})[gstr]&&(PREDS[nm][gstr]||{})[idx]; if(p)picks[nm]=p; }); }
+    return {gw:gw, idx:idx, home:m[0], away:m[1], ms:Date.parse(KICKOFFS[gw][i]), res:res, locked:lk, picks:picks};
+  });
+  return {gw:gw, locked:lk, matches:matches, players:players};
+}
+async function renderWeekPicks(){
+  const host=$("#weekOut");
+  host.innerHTML='<div class="lb-empty">Loading…</div>';
+  let rows;
+  try{ rows=dedupe(await fetchAll()); }
+  catch(e){ host.innerHTML='<div class="lb-empty">'+(SCRIPT_URL?'Could not load the sheet. Try Refresh.':'No sheet connected yet.')+'</div>'; return; }
+  if(wkGW===null) wkGW=currentMatchGW();
+  $("#weekGwSel").value=wkGW;
+  const model=buildWeekModel(rows, wkGW);
+  const done=model.matches.filter(x=>x.res).length;
+  let html='<div class="today-head"><h3>Gameweek '+model.gw+'</h3><span>'+done+' of 10 played'+(model.locked?'':' · picks reveal after 7:30pm Friday')+'</span></div>';
+  model.matches.forEach(mt=>{
+    const ft=!!mt.res;
+    const ch=(TEAM_COLORS[mt.home]||'#888'), ca=(TEAM_COLORS[mt.away]||'#888');
+    const scoreMid = ft ? (mt.res[0]+'<span class="v">&ndash;</span>'+mt.res[1]) : '<span class="v">v</span>';
+    let chips='';
+    if(!mt.locked){ chips='<span class="tp-hidden">Predictions reveal when Gameweek '+mt.gw+' locks, 7:30pm Friday.</span>'; }
+    else if(!model.players.length){ chips='<span class="tp-none">No predictions in yet.</span>'; }
+    else { model.players.forEach(nm=>{ const p=mt.picks[nm];
+      if(!p){ chips+='<span class="chip miss">'+nm+'<span class="s">&ndash;</span></span>'; return; }
+      let cls=''; if(ft){ const ex=(p[0]===mt.res[0]&&p[1]===mt.res[1]); const sg=(x,y)=>(x>y)-(x<y); cls=ex?' b3':(sg(p[0],p[1])===sg(mt.res[0],mt.res[1])?' b1':' b0'); }
+      chips+='<span class="chip'+cls+'">'+nm+'<span class="s">'+p[0]+'&ndash;'+p[1]+'</span></span>'; }); }
+    html+='<div class="mcard"><div class="mtop"><span class="mtime">'+ukClock(mt.ms)+' UK</span><span class="mmeta">GW'+mt.gw+'</span>'+(ft?'<span class="tag ft">Full time</span>':'')+'</div>'+
+      '<div class="fixline"><div class="tp-team"><span class="dot" style="background:'+ch+'"></span><span class="tn">'+mt.home+'</span></div><div class="tp-score">'+scoreMid+'</div><div class="tp-team a"><span class="dot" style="background:'+ca+'"></span><span class="tn">'+mt.away+'</span></div></div>'+
+      '<div class="picks">'+chips+'</div></div>';
+  });
+  host.innerHTML=html;
+}
+
+/* ============================================================
    WIRING
    ============================================================ */
 function activateTab(name){
@@ -614,6 +775,8 @@ function activateTab(name){
   $$('.view').forEach(v=>v.classList.remove("on"));
   b.classList.add("on"); $("#"+name).classList.add("on");
   if(name==="leaderboard")renderLeaderboard();
+  if(name==="today")renderToday();
+  if(name==="week")renderWeekPicks();
   if(name==="organiser"){buildResultsForm();loadResults();}
 }
 function init(){
@@ -639,6 +802,9 @@ function init(){
   $("#submitBtn").addEventListener("click",submit);
   $("#codeBtn").addEventListener("click",()=>showCode($("#player").value));
   $("#refreshLb").addEventListener("click",renderLeaderboard);
+  $("#refreshToday").addEventListener("click",renderToday);
+  $("#refreshWeek").addEventListener("click",renderWeekPicks);
+  $("#weekGwSel").addEventListener("change",()=>{wkGW=Number($("#weekGwSel").value);renderWeekPicks();});
   $("#lbGwSel").addEventListener("change",()=>{lbGW=Number($("#lbGwSel").value);if(BOARD)renderWeek();});
   $("#resGwSel").addEventListener("change",()=>{buildResultsForm();loadResults();});
   $("#saveRes").addEventListener("click",saveResults);
