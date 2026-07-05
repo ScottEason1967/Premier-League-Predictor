@@ -1,0 +1,7 @@
+# Operational only — holds the results-task brief and (once wired) the organiser PIN. Never publish.
+pl-auto-results-task.md
+
+# OS cruft
+.DS_Store
+Thumbs.db
+desktop.ini

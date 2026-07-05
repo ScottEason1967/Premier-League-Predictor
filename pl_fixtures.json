@@ -1,0 +1,2060 @@
+{
+ "season": "2026/27",
+ "source": "fixturedownload.com (official PL list)",
+ "fixtures": {
+  "1": [
+   [
+    "Arsenal",
+    "Coventry"
+   ],
+   [
+    "Hull",
+    "Man Utd"
+   ],
+   [
+    "Everton",
+    "Crystal Palace"
+   ],
+   [
+    "Ipswich",
+    "Sunderland"
+   ],
+   [
+    "Nott'm Forest",
+    "Leeds"
+   ],
+   [
+    "Brentford",
+    "Spurs"
+   ],
+   [
+    "Brighton",
+    "Aston Villa"
+   ],
+   [
+    "Man City",
+    "Bournemouth"
+   ],
+   [
+    "Newcastle",
+    "Liverpool"
+   ],
+   [
+    "Fulham",
+    "Chelsea"
+   ]
+  ],
+  "2": [
+   [
+    "Bournemouth",
+    "Everton"
+   ],
+   [
+    "Aston Villa",
+    "Arsenal"
+   ],
+   [
+    "Chelsea",
+    "Brighton"
+   ],
+   [
+    "Coventry",
+    "Hull"
+   ],
+   [
+    "Crystal Palace",
+    "Man City"
+   ],
+   [
+    "Leeds",
+    "Brentford"
+   ],
+   [
+    "Liverpool",
+    "Nott'm Forest"
+   ],
+   [
+    "Man Utd",
+    "Ipswich"
+   ],
+   [
+    "Sunderland",
+    "Fulham"
+   ],
+   [
+    "Spurs",
+    "Newcastle"
+   ]
+  ],
+  "3": [
+   [
+    "Arsenal",
+    "Chelsea"
+   ],
+   [
+    "Brentford",
+    "Sunderland"
+   ],
+   [
+    "Brighton",
+    "Leeds"
+   ],
+   [
+    "Everton",
+    "Man Utd"
+   ],
+   [
+    "Fulham",
+    "Crystal Palace"
+   ],
+   [
+    "Hull",
+    "Aston Villa"
+   ],
+   [
+    "Ipswich",
+    "Liverpool"
+   ],
+   [
+    "Man City",
+    "Coventry"
+   ],
+   [
+    "Newcastle",
+    "Bournemouth"
+   ],
+   [
+    "Nott'm Forest",
+    "Spurs"
+   ]
+  ],
+  "4": [
+   [
+    "Bournemouth",
+    "Brentford"
+   ],
+   [
+    "Aston Villa",
+    "Nott'm Forest"
+   ],
+   [
+    "Chelsea",
+    "Hull"
+   ],
+   [
+    "Coventry",
+    "Brighton"
+   ],
+   [
+    "Crystal Palace",
+    "Ipswich"
+   ],
+   [
+    "Leeds",
+    "Newcastle"
+   ],
+   [
+    "Liverpool",
+    "Fulham"
+   ],
+   [
+    "Man Utd",
+    "Man City"
+   ],
+   [
+    "Sunderland",
+    "Arsenal"
+   ],
+   [
+    "Spurs",
+    "Everton"
+   ]
+  ],
+  "5": [
+   [
+    "Bournemouth",
+    "Liverpool"
+   ],
+   [
+    "Brentford",
+    "Chelsea"
+   ],
+   [
+    "Brighton",
+    "Arsenal"
+   ],
+   [
+    "Everton",
+    "Ipswich"
+   ],
+   [
+    "Fulham",
+    "Man Utd"
+   ],
+   [
+    "Leeds",
+    "Crystal Palace"
+   ],
+   [
+    "Man City",
+    "Sunderland"
+   ],
+   [
+    "Newcastle",
+    "Hull"
+   ],
+   [
+    "Nott'm Forest",
+    "Coventry"
+   ],
+   [
+    "Spurs",
+    "Aston Villa"
+   ]
+  ],
+  "6": [
+   [
+    "Arsenal",
+    "Leeds"
+   ],
+   [
+    "Aston Villa",
+    "Brentford"
+   ],
+   [
+    "Chelsea",
+    "Bournemouth"
+   ],
+   [
+    "Coventry",
+    "Newcastle"
+   ],
+   [
+    "Crystal Palace",
+    "Nott'm Forest"
+   ],
+   [
+    "Hull",
+    "Everton"
+   ],
+   [
+    "Ipswich",
+    "Fulham"
+   ],
+   [
+    "Liverpool",
+    "Man City"
+   ],
+   [
+    "Man Utd",
+    "Spurs"
+   ],
+   [
+    "Sunderland",
+    "Brighton"
+   ]
+  ],
+  "7": [
+   [
+    "Bournemouth",
+    "Sunderland"
+   ],
+   [
+    "Brentford",
+    "Liverpool"
+   ],
+   [
+    "Brighton",
+    "Crystal Palace"
+   ],
+   [
+    "Everton",
+    "Chelsea"
+   ],
+   [
+    "Fulham",
+    "Hull"
+   ],
+   [
+    "Leeds",
+    "Man Utd"
+   ],
+   [
+    "Man City",
+    "Ipswich"
+   ],
+   [
+    "Newcastle",
+    "Aston Villa"
+   ],
+   [
+    "Nott'm Forest",
+    "Arsenal"
+   ],
+   [
+    "Spurs",
+    "Coventry"
+   ]
+  ],
+  "8": [
+   [
+    "Arsenal",
+    "Everton"
+   ],
+   [
+    "Aston Villa",
+    "Man City"
+   ],
+   [
+    "Chelsea",
+    "Spurs"
+   ],
+   [
+    "Coventry",
+    "Fulham"
+   ],
+   [
+    "Crystal Palace",
+    "Newcastle"
+   ],
+   [
+    "Hull",
+    "Brentford"
+   ],
+   [
+    "Ipswich",
+    "Nott'm Forest"
+   ],
+   [
+    "Liverpool",
+    "Brighton"
+   ],
+   [
+    "Man Utd",
+    "Bournemouth"
+   ],
+   [
+    "Sunderland",
+    "Leeds"
+   ]
+  ],
+  "9": [
+   [
+    "Bournemouth",
+    "Leeds"
+   ],
+   [
+    "Aston Villa",
+    "Fulham"
+   ],
+   [
+    "Brentford",
+    "Nott'm Forest"
+   ],
+   [
+    "Chelsea",
+    "Man Utd"
+   ],
+   [
+    "Coventry",
+    "Sunderland"
+   ],
+   [
+    "Hull",
+    "Ipswich"
+   ],
+   [
+    "Liverpool",
+    "Arsenal"
+   ],
+   [
+    "Man City",
+    "Brighton"
+   ],
+   [
+    "Newcastle",
+    "Everton"
+   ],
+   [
+    "Spurs",
+    "Crystal Palace"
+   ]
+  ],
+  "10": [
+   [
+    "Arsenal",
+    "Hull"
+   ],
+   [
+    "Brighton",
+    "Brentford"
+   ],
+   [
+    "Crystal Palace",
+    "Liverpool"
+   ],
+   [
+    "Everton",
+    "Coventry"
+   ],
+   [
+    "Fulham",
+    "Newcastle"
+   ],
+   [
+    "Ipswich",
+    "Bournemouth"
+   ],
+   [
+    "Leeds",
+    "Spurs"
+   ],
+   [
+    "Man Utd",
+    "Aston Villa"
+   ],
+   [
+    "Nott'm Forest",
+    "Man City"
+   ],
+   [
+    "Sunderland",
+    "Chelsea"
+   ]
+  ],
+  "11": [
+   [
+    "Bournemouth",
+    "Nott'm Forest"
+   ],
+   [
+    "Aston Villa",
+    "Sunderland"
+   ],
+   [
+    "Brentford",
+    "Everton"
+   ],
+   [
+    "Chelsea",
+    "Leeds"
+   ],
+   [
+    "Coventry",
+    "Crystal Palace"
+   ],
+   [
+    "Hull",
+    "Brighton"
+   ],
+   [
+    "Liverpool",
+    "Man Utd"
+   ],
+   [
+    "Man City",
+    "Fulham"
+   ],
+   [
+    "Newcastle",
+    "Arsenal"
+   ],
+   [
+    "Spurs",
+    "Ipswich"
+   ]
+  ],
+  "12": [
+   [
+    "Arsenal",
+    "Man City"
+   ],
+   [
+    "Brighton",
+    "Newcastle"
+   ],
+   [
+    "Crystal Palace",
+    "Hull"
+   ],
+   [
+    "Everton",
+    "Liverpool"
+   ],
+   [
+    "Fulham",
+    "Bournemouth"
+   ],
+   [
+    "Ipswich",
+    "Aston Villa"
+   ],
+   [
+    "Leeds",
+    "Coventry"
+   ],
+   [
+    "Man Utd",
+    "Brentford"
+   ],
+   [
+    "Nott'm Forest",
+    "Chelsea"
+   ],
+   [
+    "Sunderland",
+    "Spurs"
+   ]
+  ],
+  "13": [
+   [
+    "Bournemouth",
+    "Brighton"
+   ],
+   [
+    "Aston Villa",
+    "Everton"
+   ],
+   [
+    "Brentford",
+    "Arsenal"
+   ],
+   [
+    "Chelsea",
+    "Crystal Palace"
+   ],
+   [
+    "Coventry",
+    "Ipswich"
+   ],
+   [
+    "Hull",
+    "Nott'm Forest"
+   ],
+   [
+    "Liverpool",
+    "Sunderland"
+   ],
+   [
+    "Man City",
+    "Leeds"
+   ],
+   [
+    "Newcastle",
+    "Man Utd"
+   ],
+   [
+    "Spurs",
+    "Fulham"
+   ]
+  ],
+  "14": [
+   [
+    "Bournemouth",
+    "Hull"
+   ],
+   [
+    "Aston Villa",
+    "Crystal Palace"
+   ],
+   [
+    "Brentford",
+    "Man City"
+   ],
+   [
+    "Chelsea",
+    "Liverpool"
+   ],
+   [
+    "Everton",
+    "Fulham"
+   ],
+   [
+    "Leeds",
+    "Ipswich"
+   ],
+   [
+    "Man Utd",
+    "Coventry"
+   ],
+   [
+    "Newcastle",
+    "Sunderland"
+   ],
+   [
+    "Nott'm Forest",
+    "Brighton"
+   ],
+   [
+    "Spurs",
+    "Arsenal"
+   ]
+  ],
+  "15": [
+   [
+    "Arsenal",
+    "Bournemouth"
+   ],
+   [
+    "Brighton",
+    "Everton"
+   ],
+   [
+    "Coventry",
+    "Aston Villa"
+   ],
+   [
+    "Crystal Palace",
+    "Man Utd"
+   ],
+   [
+    "Fulham",
+    "Brentford"
+   ],
+   [
+    "Hull",
+    "Spurs"
+   ],
+   [
+    "Ipswich",
+    "Newcastle"
+   ],
+   [
+    "Liverpool",
+    "Leeds"
+   ],
+   [
+    "Man City",
+    "Chelsea"
+   ],
+   [
+    "Sunderland",
+    "Nott'm Forest"
+   ]
+  ],
+  "16": [
+   [
+    "Bournemouth",
+    "Coventry"
+   ],
+   [
+    "Arsenal",
+    "Man Utd"
+   ],
+   [
+    "Brentford",
+    "Newcastle"
+   ],
+   [
+    "Brighton",
+    "Ipswich"
+   ],
+   [
+    "Chelsea",
+    "Aston Villa"
+   ],
+   [
+    "Leeds",
+    "Fulham"
+   ],
+   [
+    "Liverpool",
+    "Spurs"
+   ],
+   [
+    "Man City",
+    "Hull"
+   ],
+   [
+    "Nott'm Forest",
+    "Everton"
+   ],
+   [
+    "Sunderland",
+    "Crystal Palace"
+   ]
+  ],
+  "17": [
+   [
+    "Aston Villa",
+    "Leeds"
+   ],
+   [
+    "Coventry",
+    "Chelsea"
+   ],
+   [
+    "Crystal Palace",
+    "Arsenal"
+   ],
+   [
+    "Everton",
+    "Sunderland"
+   ],
+   [
+    "Fulham",
+    "Brighton"
+   ],
+   [
+    "Hull",
+    "Liverpool"
+   ],
+   [
+    "Ipswich",
+    "Brentford"
+   ],
+   [
+    "Man Utd",
+    "Nott'm Forest"
+   ],
+   [
+    "Newcastle",
+    "Man City"
+   ],
+   [
+    "Spurs",
+    "Bournemouth"
+   ]
+  ],
+  "18": [
+   [
+    "Aston Villa",
+    "Liverpool"
+   ],
+   [
+    "Coventry",
+    "Brentford"
+   ],
+   [
+    "Crystal Palace",
+    "Bournemouth"
+   ],
+   [
+    "Everton",
+    "Man City"
+   ],
+   [
+    "Fulham",
+    "Arsenal"
+   ],
+   [
+    "Hull",
+    "Leeds"
+   ],
+   [
+    "Ipswich",
+    "Chelsea"
+   ],
+   [
+    "Man Utd",
+    "Sunderland"
+   ],
+   [
+    "Newcastle",
+    "Nott'm Forest"
+   ],
+   [
+    "Spurs",
+    "Brighton"
+   ]
+  ],
+  "19": [
+   [
+    "Bournemouth",
+    "Aston Villa"
+   ],
+   [
+    "Arsenal",
+    "Ipswich"
+   ],
+   [
+    "Brentford",
+    "Crystal Palace"
+   ],
+   [
+    "Brighton",
+    "Man Utd"
+   ],
+   [
+    "Chelsea",
+    "Newcastle"
+   ],
+   [
+    "Leeds",
+    "Everton"
+   ],
+   [
+    "Liverpool",
+    "Coventry"
+   ],
+   [
+    "Man City",
+    "Spurs"
+   ],
+   [
+    "Nott'm Forest",
+    "Fulham"
+   ],
+   [
+    "Sunderland",
+    "Hull"
+   ]
+  ],
+  "20": [
+   [
+    "Arsenal",
+    "Brentford"
+   ],
+   [
+    "Brighton",
+    "Bournemouth"
+   ],
+   [
+    "Crystal Palace",
+    "Chelsea"
+   ],
+   [
+    "Everton",
+    "Aston Villa"
+   ],
+   [
+    "Fulham",
+    "Spurs"
+   ],
+   [
+    "Ipswich",
+    "Coventry"
+   ],
+   [
+    "Leeds",
+    "Man City"
+   ],
+   [
+    "Man Utd",
+    "Newcastle"
+   ],
+   [
+    "Nott'm Forest",
+    "Hull"
+   ],
+   [
+    "Sunderland",
+    "Liverpool"
+   ]
+  ],
+  "21": [
+   [
+    "Bournemouth",
+    "Ipswich"
+   ],
+   [
+    "Aston Villa",
+    "Man Utd"
+   ],
+   [
+    "Brentford",
+    "Brighton"
+   ],
+   [
+    "Chelsea",
+    "Sunderland"
+   ],
+   [
+    "Coventry",
+    "Everton"
+   ],
+   [
+    "Hull",
+    "Arsenal"
+   ],
+   [
+    "Liverpool",
+    "Crystal Palace"
+   ],
+   [
+    "Man City",
+    "Nott'm Forest"
+   ],
+   [
+    "Newcastle",
+    "Fulham"
+   ],
+   [
+    "Spurs",
+    "Leeds"
+   ]
+  ],
+  "22": [
+   [
+    "Arsenal",
+    "Newcastle"
+   ],
+   [
+    "Brighton",
+    "Man City"
+   ],
+   [
+    "Crystal Palace",
+    "Spurs"
+   ],
+   [
+    "Everton",
+    "Brentford"
+   ],
+   [
+    "Fulham",
+    "Aston Villa"
+   ],
+   [
+    "Ipswich",
+    "Hull"
+   ],
+   [
+    "Leeds",
+    "Chelsea"
+   ],
+   [
+    "Man Utd",
+    "Liverpool"
+   ],
+   [
+    "Nott'm Forest",
+    "Bournemouth"
+   ],
+   [
+    "Sunderland",
+    "Coventry"
+   ]
+  ],
+  "23": [
+   [
+    "Bournemouth",
+    "Fulham"
+   ],
+   [
+    "Aston Villa",
+    "Ipswich"
+   ],
+   [
+    "Brentford",
+    "Man Utd"
+   ],
+   [
+    "Chelsea",
+    "Nott'm Forest"
+   ],
+   [
+    "Coventry",
+    "Leeds"
+   ],
+   [
+    "Hull",
+    "Crystal Palace"
+   ],
+   [
+    "Liverpool",
+    "Everton"
+   ],
+   [
+    "Man City",
+    "Arsenal"
+   ],
+   [
+    "Newcastle",
+    "Brighton"
+   ],
+   [
+    "Spurs",
+    "Sunderland"
+   ]
+  ],
+  "24": [
+   [
+    "Arsenal",
+    "Liverpool"
+   ],
+   [
+    "Brighton",
+    "Hull"
+   ],
+   [
+    "Crystal Palace",
+    "Coventry"
+   ],
+   [
+    "Everton",
+    "Newcastle"
+   ],
+   [
+    "Fulham",
+    "Man City"
+   ],
+   [
+    "Ipswich",
+    "Spurs"
+   ],
+   [
+    "Leeds",
+    "Bournemouth"
+   ],
+   [
+    "Man Utd",
+    "Chelsea"
+   ],
+   [
+    "Nott'm Forest",
+    "Brentford"
+   ],
+   [
+    "Sunderland",
+    "Aston Villa"
+   ]
+  ],
+  "25": [
+   [
+    "Aston Villa",
+    "Bournemouth"
+   ],
+   [
+    "Coventry",
+    "Liverpool"
+   ],
+   [
+    "Crystal Palace",
+    "Brentford"
+   ],
+   [
+    "Everton",
+    "Leeds"
+   ],
+   [
+    "Fulham",
+    "Nott'm Forest"
+   ],
+   [
+    "Hull",
+    "Sunderland"
+   ],
+   [
+    "Ipswich",
+    "Arsenal"
+   ],
+   [
+    "Man Utd",
+    "Brighton"
+   ],
+   [
+    "Newcastle",
+    "Chelsea"
+   ],
+   [
+    "Spurs",
+    "Man City"
+   ]
+  ],
+  "26": [
+   [
+    "Bournemouth",
+    "Crystal Palace"
+   ],
+   [
+    "Arsenal",
+    "Fulham"
+   ],
+   [
+    "Brentford",
+    "Coventry"
+   ],
+   [
+    "Brighton",
+    "Spurs"
+   ],
+   [
+    "Chelsea",
+    "Ipswich"
+   ],
+   [
+    "Leeds",
+    "Aston Villa"
+   ],
+   [
+    "Liverpool",
+    "Hull"
+   ],
+   [
+    "Man City",
+    "Newcastle"
+   ],
+   [
+    "Nott'm Forest",
+    "Man Utd"
+   ],
+   [
+    "Sunderland",
+    "Everton"
+   ]
+  ],
+  "27": [
+   [
+    "Aston Villa",
+    "Chelsea"
+   ],
+   [
+    "Coventry",
+    "Bournemouth"
+   ],
+   [
+    "Crystal Palace",
+    "Sunderland"
+   ],
+   [
+    "Everton",
+    "Nott'm Forest"
+   ],
+   [
+    "Fulham",
+    "Leeds"
+   ],
+   [
+    "Hull",
+    "Man City"
+   ],
+   [
+    "Ipswich",
+    "Brighton"
+   ],
+   [
+    "Man Utd",
+    "Arsenal"
+   ],
+   [
+    "Newcastle",
+    "Brentford"
+   ],
+   [
+    "Spurs",
+    "Liverpool"
+   ]
+  ],
+  "28": [
+   [
+    "Bournemouth",
+    "Spurs"
+   ],
+   [
+    "Arsenal",
+    "Crystal Palace"
+   ],
+   [
+    "Brentford",
+    "Ipswich"
+   ],
+   [
+    "Brighton",
+    "Fulham"
+   ],
+   [
+    "Chelsea",
+    "Coventry"
+   ],
+   [
+    "Leeds",
+    "Hull"
+   ],
+   [
+    "Liverpool",
+    "Aston Villa"
+   ],
+   [
+    "Man City",
+    "Everton"
+   ],
+   [
+    "Nott'm Forest",
+    "Newcastle"
+   ],
+   [
+    "Sunderland",
+    "Man Utd"
+   ]
+  ],
+  "29": [
+   [
+    "Bournemouth",
+    "Newcastle"
+   ],
+   [
+    "Aston Villa",
+    "Hull"
+   ],
+   [
+    "Chelsea",
+    "Arsenal"
+   ],
+   [
+    "Coventry",
+    "Man City"
+   ],
+   [
+    "Crystal Palace",
+    "Fulham"
+   ],
+   [
+    "Leeds",
+    "Brighton"
+   ],
+   [
+    "Liverpool",
+    "Ipswich"
+   ],
+   [
+    "Man Utd",
+    "Everton"
+   ],
+   [
+    "Sunderland",
+    "Brentford"
+   ],
+   [
+    "Spurs",
+    "Nott'm Forest"
+   ]
+  ],
+  "30": [
+   [
+    "Arsenal",
+    "Sunderland"
+   ],
+   [
+    "Brentford",
+    "Bournemouth"
+   ],
+   [
+    "Brighton",
+    "Coventry"
+   ],
+   [
+    "Everton",
+    "Spurs"
+   ],
+   [
+    "Fulham",
+    "Liverpool"
+   ],
+   [
+    "Hull",
+    "Chelsea"
+   ],
+   [
+    "Ipswich",
+    "Crystal Palace"
+   ],
+   [
+    "Man City",
+    "Man Utd"
+   ],
+   [
+    "Newcastle",
+    "Leeds"
+   ],
+   [
+    "Nott'm Forest",
+    "Aston Villa"
+   ]
+  ],
+  "31": [
+   [
+    "Bournemouth",
+    "Man City"
+   ],
+   [
+    "Aston Villa",
+    "Brighton"
+   ],
+   [
+    "Chelsea",
+    "Fulham"
+   ],
+   [
+    "Coventry",
+    "Arsenal"
+   ],
+   [
+    "Crystal Palace",
+    "Everton"
+   ],
+   [
+    "Leeds",
+    "Nott'm Forest"
+   ],
+   [
+    "Liverpool",
+    "Newcastle"
+   ],
+   [
+    "Man Utd",
+    "Hull"
+   ],
+   [
+    "Sunderland",
+    "Ipswich"
+   ],
+   [
+    "Spurs",
+    "Brentford"
+   ]
+  ],
+  "32": [
+   [
+    "Arsenal",
+    "Aston Villa"
+   ],
+   [
+    "Brentford",
+    "Leeds"
+   ],
+   [
+    "Brighton",
+    "Chelsea"
+   ],
+   [
+    "Everton",
+    "Bournemouth"
+   ],
+   [
+    "Fulham",
+    "Sunderland"
+   ],
+   [
+    "Hull",
+    "Coventry"
+   ],
+   [
+    "Ipswich",
+    "Man Utd"
+   ],
+   [
+    "Man City",
+    "Crystal Palace"
+   ],
+   [
+    "Newcastle",
+    "Spurs"
+   ],
+   [
+    "Nott'm Forest",
+    "Liverpool"
+   ]
+  ],
+  "33": [
+   [
+    "Bournemouth",
+    "Arsenal"
+   ],
+   [
+    "Aston Villa",
+    "Coventry"
+   ],
+   [
+    "Brentford",
+    "Fulham"
+   ],
+   [
+    "Chelsea",
+    "Man City"
+   ],
+   [
+    "Everton",
+    "Brighton"
+   ],
+   [
+    "Leeds",
+    "Liverpool"
+   ],
+   [
+    "Man Utd",
+    "Crystal Palace"
+   ],
+   [
+    "Newcastle",
+    "Ipswich"
+   ],
+   [
+    "Nott'm Forest",
+    "Sunderland"
+   ],
+   [
+    "Spurs",
+    "Hull"
+   ]
+  ],
+  "34": [
+   [
+    "Arsenal",
+    "Spurs"
+   ],
+   [
+    "Brighton",
+    "Nott'm Forest"
+   ],
+   [
+    "Coventry",
+    "Man Utd"
+   ],
+   [
+    "Crystal Palace",
+    "Aston Villa"
+   ],
+   [
+    "Fulham",
+    "Everton"
+   ],
+   [
+    "Hull",
+    "Bournemouth"
+   ],
+   [
+    "Ipswich",
+    "Leeds"
+   ],
+   [
+    "Liverpool",
+    "Chelsea"
+   ],
+   [
+    "Man City",
+    "Brentford"
+   ],
+   [
+    "Sunderland",
+    "Newcastle"
+   ]
+  ],
+  "35": [
+   [
+    "Bournemouth",
+    "Man Utd"
+   ],
+   [
+    "Brentford",
+    "Aston Villa"
+   ],
+   [
+    "Brighton",
+    "Sunderland"
+   ],
+   [
+    "Everton",
+    "Hull"
+   ],
+   [
+    "Fulham",
+    "Ipswich"
+   ],
+   [
+    "Leeds",
+    "Arsenal"
+   ],
+   [
+    "Man City",
+    "Liverpool"
+   ],
+   [
+    "Newcastle",
+    "Coventry"
+   ],
+   [
+    "Nott'm Forest",
+    "Crystal Palace"
+   ],
+   [
+    "Spurs",
+    "Chelsea"
+   ]
+  ],
+  "36": [
+   [
+    "Arsenal",
+    "Nott'm Forest"
+   ],
+   [
+    "Aston Villa",
+    "Newcastle"
+   ],
+   [
+    "Chelsea",
+    "Everton"
+   ],
+   [
+    "Coventry",
+    "Spurs"
+   ],
+   [
+    "Crystal Palace",
+    "Brighton"
+   ],
+   [
+    "Hull",
+    "Fulham"
+   ],
+   [
+    "Ipswich",
+    "Man City"
+   ],
+   [
+    "Liverpool",
+    "Brentford"
+   ],
+   [
+    "Man Utd",
+    "Leeds"
+   ],
+   [
+    "Sunderland",
+    "Bournemouth"
+   ]
+  ],
+  "37": [
+   [
+    "Bournemouth",
+    "Chelsea"
+   ],
+   [
+    "Brentford",
+    "Hull"
+   ],
+   [
+    "Brighton",
+    "Liverpool"
+   ],
+   [
+    "Everton",
+    "Arsenal"
+   ],
+   [
+    "Fulham",
+    "Coventry"
+   ],
+   [
+    "Leeds",
+    "Sunderland"
+   ],
+   [
+    "Man City",
+    "Aston Villa"
+   ],
+   [
+    "Newcastle",
+    "Crystal Palace"
+   ],
+   [
+    "Nott'm Forest",
+    "Ipswich"
+   ],
+   [
+    "Spurs",
+    "Man Utd"
+   ]
+  ],
+  "38": [
+   [
+    "Arsenal",
+    "Brighton"
+   ],
+   [
+    "Aston Villa",
+    "Spurs"
+   ],
+   [
+    "Chelsea",
+    "Brentford"
+   ],
+   [
+    "Coventry",
+    "Nott'm Forest"
+   ],
+   [
+    "Crystal Palace",
+    "Leeds"
+   ],
+   [
+    "Hull",
+    "Newcastle"
+   ],
+   [
+    "Ipswich",
+    "Everton"
+   ],
+   [
+    "Liverpool",
+    "Bournemouth"
+   ],
+   [
+    "Man Utd",
+    "Fulham"
+   ],
+   [
+    "Sunderland",
+    "Man City"
+   ]
+  ]
+ },
+ "kickoffsUTC": {
+  "1": [
+   "2026-08-21T19:00:00Z",
+   "2026-08-22T11:30:00Z",
+   "2026-08-22T14:00:00Z",
+   "2026-08-22T14:00:00Z",
+   "2026-08-22T14:00:00Z",
+   "2026-08-22T16:30:00Z",
+   "2026-08-23T13:00:00Z",
+   "2026-08-23T13:00:00Z",
+   "2026-08-23T15:30:00Z",
+   "2026-08-24T19:00:00Z"
+  ],
+  "2": [
+   "2026-08-29T14:00:00Z",
+   "2026-08-29T14:00:00Z",
+   "2026-08-29T14:00:00Z",
+   "2026-08-29T14:00:00Z",
+   "2026-08-29T14:00:00Z",
+   "2026-08-29T14:00:00Z",
+   "2026-08-29T14:00:00Z",
+   "2026-08-29T14:00:00Z",
+   "2026-08-29T14:00:00Z",
+   "2026-08-29T14:00:00Z"
+  ],
+  "3": [
+   "2026-09-05T14:00:00Z",
+   "2026-09-05T14:00:00Z",
+   "2026-09-05T14:00:00Z",
+   "2026-09-05T14:00:00Z",
+   "2026-09-05T14:00:00Z",
+   "2026-09-05T14:00:00Z",
+   "2026-09-05T14:00:00Z",
+   "2026-09-05T14:00:00Z",
+   "2026-09-05T14:00:00Z",
+   "2026-09-05T14:00:00Z"
+  ],
+  "4": [
+   "2026-09-12T14:00:00Z",
+   "2026-09-12T14:00:00Z",
+   "2026-09-12T14:00:00Z",
+   "2026-09-12T14:00:00Z",
+   "2026-09-12T14:00:00Z",
+   "2026-09-12T14:00:00Z",
+   "2026-09-12T14:00:00Z",
+   "2026-09-12T14:00:00Z",
+   "2026-09-12T14:00:00Z",
+   "2026-09-12T14:00:00Z"
+  ],
+  "5": [
+   "2026-09-19T14:00:00Z",
+   "2026-09-19T14:00:00Z",
+   "2026-09-19T14:00:00Z",
+   "2026-09-19T14:00:00Z",
+   "2026-09-19T14:00:00Z",
+   "2026-09-19T14:00:00Z",
+   "2026-09-19T14:00:00Z",
+   "2026-09-19T14:00:00Z",
+   "2026-09-19T14:00:00Z",
+   "2026-09-19T14:00:00Z"
+  ],
+  "6": [
+   "2026-10-10T14:00:00Z",
+   "2026-10-10T14:00:00Z",
+   "2026-10-10T14:00:00Z",
+   "2026-10-10T14:00:00Z",
+   "2026-10-10T14:00:00Z",
+   "2026-10-10T14:00:00Z",
+   "2026-10-10T14:00:00Z",
+   "2026-10-10T14:00:00Z",
+   "2026-10-10T14:00:00Z",
+   "2026-10-10T14:00:00Z"
+  ],
+  "7": [
+   "2026-10-17T14:00:00Z",
+   "2026-10-17T14:00:00Z",
+   "2026-10-17T14:00:00Z",
+   "2026-10-17T14:00:00Z",
+   "2026-10-17T14:00:00Z",
+   "2026-10-17T14:00:00Z",
+   "2026-10-17T14:00:00Z",
+   "2026-10-17T14:00:00Z",
+   "2026-10-17T14:00:00Z",
+   "2026-10-17T14:00:00Z"
+  ],
+  "8": [
+   "2026-10-24T14:00:00Z",
+   "2026-10-24T14:00:00Z",
+   "2026-10-24T14:00:00Z",
+   "2026-10-24T14:00:00Z",
+   "2026-10-24T14:00:00Z",
+   "2026-10-24T14:00:00Z",
+   "2026-10-24T14:00:00Z",
+   "2026-10-24T14:00:00Z",
+   "2026-10-24T14:00:00Z",
+   "2026-10-24T14:00:00Z"
+  ],
+  "9": [
+   "2026-10-31T15:00:00Z",
+   "2026-10-31T15:00:00Z",
+   "2026-10-31T15:00:00Z",
+   "2026-10-31T15:00:00Z",
+   "2026-10-31T15:00:00Z",
+   "2026-10-31T15:00:00Z",
+   "2026-10-31T15:00:00Z",
+   "2026-10-31T15:00:00Z",
+   "2026-10-31T15:00:00Z",
+   "2026-10-31T15:00:00Z"
+  ],
+  "10": [
+   "2026-11-07T15:00:00Z",
+   "2026-11-07T15:00:00Z",
+   "2026-11-07T15:00:00Z",
+   "2026-11-07T15:00:00Z",
+   "2026-11-07T15:00:00Z",
+   "2026-11-07T15:00:00Z",
+   "2026-11-07T15:00:00Z",
+   "2026-11-07T15:00:00Z",
+   "2026-11-07T15:00:00Z",
+   "2026-11-07T15:00:00Z"
+  ],
+  "11": [
+   "2026-11-21T15:00:00Z",
+   "2026-11-21T15:00:00Z",
+   "2026-11-21T15:00:00Z",
+   "2026-11-21T15:00:00Z",
+   "2026-11-21T15:00:00Z",
+   "2026-11-21T15:00:00Z",
+   "2026-11-21T15:00:00Z",
+   "2026-11-21T15:00:00Z",
+   "2026-11-21T15:00:00Z",
+   "2026-11-21T15:00:00Z"
+  ],
+  "12": [
+   "2026-11-28T15:00:00Z",
+   "2026-11-28T15:00:00Z",
+   "2026-11-28T15:00:00Z",
+   "2026-11-28T15:00:00Z",
+   "2026-11-28T15:00:00Z",
+   "2026-11-28T15:00:00Z",
+   "2026-11-28T15:00:00Z",
+   "2026-11-28T15:00:00Z",
+   "2026-11-28T15:00:00Z",
+   "2026-11-28T15:00:00Z"
+  ],
+  "13": [
+   "2026-12-02T20:00:00Z",
+   "2026-12-02T20:00:00Z",
+   "2026-12-02T20:00:00Z",
+   "2026-12-02T20:00:00Z",
+   "2026-12-02T20:00:00Z",
+   "2026-12-02T20:00:00Z",
+   "2026-12-02T20:00:00Z",
+   "2026-12-02T20:00:00Z",
+   "2026-12-02T20:00:00Z",
+   "2026-12-02T20:00:00Z"
+  ],
+  "14": [
+   "2026-12-05T15:00:00Z",
+   "2026-12-05T15:00:00Z",
+   "2026-12-05T15:00:00Z",
+   "2026-12-05T15:00:00Z",
+   "2026-12-05T15:00:00Z",
+   "2026-12-05T15:00:00Z",
+   "2026-12-05T15:00:00Z",
+   "2026-12-05T15:00:00Z",
+   "2026-12-05T15:00:00Z",
+   "2026-12-05T15:00:00Z"
+  ],
+  "15": [
+   "2026-12-12T15:00:00Z",
+   "2026-12-12T15:00:00Z",
+   "2026-12-12T15:00:00Z",
+   "2026-12-12T15:00:00Z",
+   "2026-12-12T15:00:00Z",
+   "2026-12-12T15:00:00Z",
+   "2026-12-12T15:00:00Z",
+   "2026-12-12T15:00:00Z",
+   "2026-12-12T15:00:00Z",
+   "2026-12-12T15:00:00Z"
+  ],
+  "16": [
+   "2026-12-19T15:00:00Z",
+   "2026-12-19T15:00:00Z",
+   "2026-12-19T15:00:00Z",
+   "2026-12-19T15:00:00Z",
+   "2026-12-19T15:00:00Z",
+   "2026-12-19T15:00:00Z",
+   "2026-12-19T15:00:00Z",
+   "2026-12-19T15:00:00Z",
+   "2026-12-19T15:00:00Z",
+   "2026-12-19T15:00:00Z"
+  ],
+  "17": [
+   "2026-12-26T15:00:00Z",
+   "2026-12-26T15:00:00Z",
+   "2026-12-26T15:00:00Z",
+   "2026-12-26T15:00:00Z",
+   "2026-12-26T15:00:00Z",
+   "2026-12-26T15:00:00Z",
+   "2026-12-26T15:00:00Z",
+   "2026-12-26T15:00:00Z",
+   "2026-12-26T15:00:00Z",
+   "2026-12-26T15:00:00Z"
+  ],
+  "18": [
+   "2026-12-30T20:00:00Z",
+   "2026-12-30T20:00:00Z",
+   "2026-12-30T20:00:00Z",
+   "2026-12-30T20:00:00Z",
+   "2026-12-30T20:00:00Z",
+   "2026-12-30T20:00:00Z",
+   "2026-12-30T20:00:00Z",
+   "2026-12-30T20:00:00Z",
+   "2026-12-30T20:00:00Z",
+   "2026-12-30T20:00:00Z"
+  ],
+  "19": [
+   "2027-01-02T15:00:00Z",
+   "2027-01-02T15:00:00Z",
+   "2027-01-02T15:00:00Z",
+   "2027-01-02T15:00:00Z",
+   "2027-01-02T15:00:00Z",
+   "2027-01-02T15:00:00Z",
+   "2027-01-02T15:00:00Z",
+   "2027-01-02T15:00:00Z",
+   "2027-01-02T15:00:00Z",
+   "2027-01-02T15:00:00Z"
+  ],
+  "20": [
+   "2027-01-06T20:00:00Z",
+   "2027-01-06T20:00:00Z",
+   "2027-01-06T20:00:00Z",
+   "2027-01-06T20:00:00Z",
+   "2027-01-06T20:00:00Z",
+   "2027-01-06T20:00:00Z",
+   "2027-01-06T20:00:00Z",
+   "2027-01-06T20:00:00Z",
+   "2027-01-06T20:00:00Z",
+   "2027-01-06T20:00:00Z"
+  ],
+  "21": [
+   "2027-01-16T15:00:00Z",
+   "2027-01-16T15:00:00Z",
+   "2027-01-16T15:00:00Z",
+   "2027-01-16T15:00:00Z",
+   "2027-01-16T15:00:00Z",
+   "2027-01-16T15:00:00Z",
+   "2027-01-16T15:00:00Z",
+   "2027-01-16T15:00:00Z",
+   "2027-01-16T15:00:00Z",
+   "2027-01-16T15:00:00Z"
+  ],
+  "22": [
+   "2027-01-23T15:00:00Z",
+   "2027-01-23T15:00:00Z",
+   "2027-01-23T15:00:00Z",
+   "2027-01-23T15:00:00Z",
+   "2027-01-23T15:00:00Z",
+   "2027-01-23T15:00:00Z",
+   "2027-01-23T15:00:00Z",
+   "2027-01-23T15:00:00Z",
+   "2027-01-23T15:00:00Z",
+   "2027-01-23T15:00:00Z"
+  ],
+  "23": [
+   "2027-01-30T15:00:00Z",
+   "2027-01-30T15:00:00Z",
+   "2027-01-30T15:00:00Z",
+   "2027-01-30T15:00:00Z",
+   "2027-01-30T15:00:00Z",
+   "2027-01-30T15:00:00Z",
+   "2027-01-30T15:00:00Z",
+   "2027-01-30T15:00:00Z",
+   "2027-01-30T15:00:00Z",
+   "2027-01-30T15:00:00Z"
+  ],
+  "24": [
+   "2027-02-06T15:00:00Z",
+   "2027-02-06T15:00:00Z",
+   "2027-02-06T15:00:00Z",
+   "2027-02-06T15:00:00Z",
+   "2027-02-06T15:00:00Z",
+   "2027-02-06T15:00:00Z",
+   "2027-02-06T15:00:00Z",
+   "2027-02-06T15:00:00Z",
+   "2027-02-06T15:00:00Z",
+   "2027-02-06T15:00:00Z"
+  ],
+  "25": [
+   "2027-02-10T20:00:00Z",
+   "2027-02-10T20:00:00Z",
+   "2027-02-10T20:00:00Z",
+   "2027-02-10T20:00:00Z",
+   "2027-02-10T20:00:00Z",
+   "2027-02-10T20:00:00Z",
+   "2027-02-10T20:00:00Z",
+   "2027-02-10T20:00:00Z",
+   "2027-02-10T20:00:00Z",
+   "2027-02-10T20:00:00Z"
+  ],
+  "26": [
+   "2027-02-20T15:00:00Z",
+   "2027-02-20T15:00:00Z",
+   "2027-02-20T15:00:00Z",
+   "2027-02-20T15:00:00Z",
+   "2027-02-20T15:00:00Z",
+   "2027-02-20T15:00:00Z",
+   "2027-02-20T15:00:00Z",
+   "2027-02-20T15:00:00Z",
+   "2027-02-20T15:00:00Z",
+   "2027-02-20T15:00:00Z"
+  ],
+  "27": [
+   "2027-02-27T15:00:00Z",
+   "2027-02-27T15:00:00Z",
+   "2027-02-27T15:00:00Z",
+   "2027-02-27T15:00:00Z",
+   "2027-02-27T15:00:00Z",
+   "2027-02-27T15:00:00Z",
+   "2027-02-27T15:00:00Z",
+   "2027-02-27T15:00:00Z",
+   "2027-02-27T15:00:00Z",
+   "2027-02-27T15:00:00Z"
+  ],
+  "28": [
+   "2027-03-03T20:00:00Z",
+   "2027-03-03T20:00:00Z",
+   "2027-03-03T20:00:00Z",
+   "2027-03-03T20:00:00Z",
+   "2027-03-03T20:00:00Z",
+   "2027-03-03T20:00:00Z",
+   "2027-03-03T20:00:00Z",
+   "2027-03-03T20:00:00Z",
+   "2027-03-03T20:00:00Z",
+   "2027-03-03T20:00:00Z"
+  ],
+  "29": [
+   "2027-03-13T15:00:00Z",
+   "2027-03-13T15:00:00Z",
+   "2027-03-13T15:00:00Z",
+   "2027-03-13T15:00:00Z",
+   "2027-03-13T15:00:00Z",
+   "2027-03-13T15:00:00Z",
+   "2027-03-13T15:00:00Z",
+   "2027-03-13T15:00:00Z",
+   "2027-03-13T15:00:00Z",
+   "2027-03-13T15:00:00Z"
+  ],
+  "30": [
+   "2027-03-20T15:00:00Z",
+   "2027-03-20T15:00:00Z",
+   "2027-03-20T15:00:00Z",
+   "2027-03-20T15:00:00Z",
+   "2027-03-20T15:00:00Z",
+   "2027-03-20T15:00:00Z",
+   "2027-03-20T15:00:00Z",
+   "2027-03-20T15:00:00Z",
+   "2027-03-20T15:00:00Z",
+   "2027-03-20T15:00:00Z"
+  ],
+  "31": [
+   "2027-04-10T14:00:00Z",
+   "2027-04-10T14:00:00Z",
+   "2027-04-10T14:00:00Z",
+   "2027-04-10T14:00:00Z",
+   "2027-04-10T14:00:00Z",
+   "2027-04-10T14:00:00Z",
+   "2027-04-10T14:00:00Z",
+   "2027-04-10T14:00:00Z",
+   "2027-04-10T14:00:00Z",
+   "2027-04-10T14:00:00Z"
+  ],
+  "32": [
+   "2027-04-17T14:00:00Z",
+   "2027-04-17T14:00:00Z",
+   "2027-04-17T14:00:00Z",
+   "2027-04-17T14:00:00Z",
+   "2027-04-17T14:00:00Z",
+   "2027-04-17T14:00:00Z",
+   "2027-04-17T14:00:00Z",
+   "2027-04-17T14:00:00Z",
+   "2027-04-17T14:00:00Z",
+   "2027-04-17T14:00:00Z"
+  ],
+  "33": [
+   "2027-04-24T14:00:00Z",
+   "2027-04-24T14:00:00Z",
+   "2027-04-24T14:00:00Z",
+   "2027-04-24T14:00:00Z",
+   "2027-04-24T14:00:00Z",
+   "2027-04-24T14:00:00Z",
+   "2027-04-24T14:00:00Z",
+   "2027-04-24T14:00:00Z",
+   "2027-04-24T14:00:00Z",
+   "2027-04-24T14:00:00Z"
+  ],
+  "34": [
+   "2027-05-01T14:00:00Z",
+   "2027-05-01T14:00:00Z",
+   "2027-05-01T14:00:00Z",
+   "2027-05-01T14:00:00Z",
+   "2027-05-01T14:00:00Z",
+   "2027-05-01T14:00:00Z",
+   "2027-05-01T14:00:00Z",
+   "2027-05-01T14:00:00Z",
+   "2027-05-01T14:00:00Z",
+   "2027-05-01T14:00:00Z"
+  ],
+  "35": [
+   "2027-05-08T14:00:00Z",
+   "2027-05-08T14:00:00Z",
+   "2027-05-08T14:00:00Z",
+   "2027-05-08T14:00:00Z",
+   "2027-05-08T14:00:00Z",
+   "2027-05-08T14:00:00Z",
+   "2027-05-08T14:00:00Z",
+   "2027-05-08T14:00:00Z",
+   "2027-05-08T14:00:00Z",
+   "2027-05-08T14:00:00Z"
+  ],
+  "36": [
+   "2027-05-15T14:00:00Z",
+   "2027-05-15T14:00:00Z",
+   "2027-05-15T14:00:00Z",
+   "2027-05-15T14:00:00Z",
+   "2027-05-15T14:00:00Z",
+   "2027-05-15T14:00:00Z",
+   "2027-05-15T14:00:00Z",
+   "2027-05-15T14:00:00Z",
+   "2027-05-15T14:00:00Z",
+   "2027-05-15T14:00:00Z"
+  ],
+  "37": [
+   "2027-05-23T14:00:00Z",
+   "2027-05-23T14:00:00Z",
+   "2027-05-23T14:00:00Z",
+   "2027-05-23T14:00:00Z",
+   "2027-05-23T14:00:00Z",
+   "2027-05-23T14:00:00Z",
+   "2027-05-23T14:00:00Z",
+   "2027-05-23T14:00:00Z",
+   "2027-05-23T14:00:00Z",
+   "2027-05-23T14:00:00Z"
+  ],
+  "38": [
+   "2027-05-30T15:00:00Z",
+   "2027-05-30T15:00:00Z",
+   "2027-05-30T15:00:00Z",
+   "2027-05-30T15:00:00Z",
+   "2027-05-30T15:00:00Z",
+   "2027-05-30T15:00:00Z",
+   "2027-05-30T15:00:00Z",
+   "2027-05-30T15:00:00Z",
+   "2027-05-30T15:00:00Z",
+   "2027-05-30T15:00:00Z"
+  ]
+ }
+}
