@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Premier League 2026/27 Predictor</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Hanken+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#1a0522;
+    --panel:#2b0b34;
+    --panel-2:#220829;
+    --ink:#f6eefb;
+    --muted:#b598c6;
+    --pink:#e90052;
+    --purple:#37003c;
+    --green:#00ff85;
+    --cyan:#04f5ff;
+    --gold:#ffd54a;
+    --line:rgba(255,255,255,.09);
+    --line-strong:rgba(255,255,255,.17);
+    --shadow:0 18px 40px -20px rgba(0,0,0,.75);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    background:
+      radial-gradient(1100px 560px at 82% -12%, rgba(233,0,82,.18), transparent 60%),
+      radial-gradient(900px 520px at -12% 4%, rgba(4,245,255,.10), transparent 55%),
+      var(--bg);
+    color:var(--ink);
+    font-family:"Hanken Grotesk",system-ui,sans-serif;
+    font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased;min-height:100vh;
+  }
+  .wrap{max-width:1000px;margin:0 auto;padding:0 18px 80px}
+
+  /* Header */
+  header{padding:34px 0 20px;border-bottom:1px solid var(--line)}
+  .brand{display:flex;align-items:center;gap:14px}
+  .badge{width:56px;height:56px;border-radius:14px;flex:0 0 auto;display:grid;place-items:center;
+    background:linear-gradient(150deg,var(--pink),#8a0140);box-shadow:0 10px 24px -10px rgba(233,0,82,.7)}
+  .badge span{font-family:"Anton";font-size:26px;color:#fff;letter-spacing:.02em}
+  .kicker{font-size:12px;letter-spacing:.34em;text-transform:uppercase;color:var(--cyan);font-weight:800;margin:0 0 6px}
+  h1{font-family:"Anton",sans-serif;font-weight:400;line-height:.9;font-size:clamp(34px,7.5vw,68px);
+     margin:0;text-transform:uppercase}
+  h1 .yr{color:var(--pink)}
+  .sub{color:var(--muted);margin:14px 0 0;max-width:60ch;font-size:15px}
+
+  .scoring{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}
+  .pill{display:flex;align-items:center;gap:10px;background:var(--panel);border:1px solid var(--line);
+        border-radius:999px;padding:7px 15px 7px 7px;font-size:14px}
+  .pill b{display:inline-grid;place-items:center;width:29px;height:29px;border-radius:50%;
+          font-family:"Anton";font-size:15px;color:#1a0522}
+  .pill.p0 b{background:#6a5878;color:#fff}
+  .pill.p1 b{background:var(--cyan)}
+  .pill.p3 b{background:var(--green)}
+
+  /* Hero banner */
+  .hero{width:100%;height:clamp(150px,26vw,248px);border-radius:16px;border:1px solid var(--line);
+    box-shadow:var(--shadow);margin:2px 0 20px;background:var(--purple) url("premier-league-24-25.jpg") center 35%/cover no-repeat}
+
+  /* Tabs */
+  nav.tabs{display:flex;flex-wrap:wrap;gap:4px;margin:24px 0 22px;background:var(--panel-2);
+           border:1px solid var(--line);border-radius:14px;padding:5px;position:sticky;top:10px;z-index:20;
+           backdrop-filter:blur(8px)}
+  nav.tabs button{flex:1 1 82px;border:0;background:transparent;color:var(--muted);font-family:inherit;
+    font-weight:700;font-size:14.5px;padding:11px 8px;border-radius:10px;cursor:pointer;transition:.18s}
+  nav.tabs button:hover{color:var(--ink)}
+  nav.tabs button.on{background:var(--pink);color:#fff}
+
+  .view{display:none;animation:rise .32s ease both}
+  .view.on{display:block}
+  @keyframes rise{from{opacity:0;transform:translateY(9px)}to{opacity:1;transform:none}}
+
+  /* Gameweek switcher */
+  .gwbar{display:flex;align-items:center;gap:10px;margin:0 0 16px}
+  .gwbar .arrow{width:42px;height:42px;border-radius:11px;border:1px solid var(--line-strong);
+    background:var(--panel);color:var(--ink);font-size:20px;cursor:pointer;font-weight:800;line-height:1;transition:.16s}
+  .gwbar .arrow:hover{border-color:var(--pink);color:var(--pink)}
+  .gwbar .arrow:disabled{opacity:.35;cursor:not-allowed;border-color:var(--line);color:var(--muted)}
+  select,input[type=number],input[type=password]{font-family:inherit;color:var(--ink);background:var(--panel-2);
+    border:1px solid var(--line-strong);border-radius:10px;padding:10px 12px;font-size:15px}
+  select{font-weight:800;min-width:170px}
+  select.gw{flex:1;font-family:"Anton";font-size:19px;letter-spacing:.02em;text-align:center;padding:9px 12px}
+  select:focus,input:focus{outline:2px solid var(--pink);outline-offset:1px}
+  .gwtag{margin-left:auto;font-size:12px;color:var(--muted);text-align:right;white-space:nowrap}
+  .gwtag b{color:var(--gold)}
+
+  /* Name bar */
+  .namebar{display:flex;flex-wrap:wrap;gap:12px;align-items:center;background:var(--panel);
+           border:1px solid var(--line);border-radius:14px;padding:15px 18px;margin-bottom:16px}
+  .namebar label{font-weight:700;font-size:14px;color:var(--muted)}
+  #pin,#resPin{width:96px;text-align:center;font-weight:700;letter-spacing:.3em}
+  #pin::placeholder,#resPin::placeholder{letter-spacing:normal;font-weight:500}
+  .progress{font-size:13px;color:var(--muted);font-weight:600}
+  .progress b{color:var(--green)}
+  .deadline{margin-left:auto;font-size:13px;color:var(--muted);text-align:right}
+  .deadline b{color:var(--ink)}
+  .note{font-size:13px;color:var(--muted);margin-top:4px}
+  .locked-banner{background:rgba(233,0,82,.12);border:1px solid rgba(233,0,82,.42);
+    color:#ffd0e0;border-radius:12px;padding:13px 16px;margin-bottom:16px;font-size:14px;font-weight:600;display:none}
+
+  /* Match rows */
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:16px;overflow:hidden;box-shadow:var(--shadow)}
+  .card-head{display:flex;align-items:center;gap:12px;padding:13px 18px;border-bottom:1px solid var(--line);background:var(--panel-2)}
+  .card-head h3{margin:0;font-size:14px;font-weight:800;letter-spacing:.05em;text-transform:uppercase}
+  .match,.res-match{display:grid;grid-template-columns:132px 1fr auto 1fr;align-items:center;gap:10px;
+         padding:12px 18px;border-bottom:1px solid var(--line)}
+  .match:last-child,.res-match:last-child{border-bottom:0}
+  .mno{font-size:11.5px;color:var(--muted);font-weight:600;line-height:1.25}
+  .side{display:flex;align-items:center;gap:9px;min-width:0}
+  .side.away{flex-direction:row-reverse;text-align:right}
+  .dot{width:14px;height:14px;border-radius:50%;flex:0 0 auto;box-shadow:0 0 0 1px rgba(255,255,255,.25) inset}
+  .crest{position:relative;width:26px;height:26px;border-radius:6px;flex:0 0 auto;display:inline-grid;place-items:center;overflow:hidden;box-shadow:0 0 0 1px rgba(255,255,255,.14) inset}
+  .crest i{font-style:normal;font-family:"Anton";font-size:10px;line-height:1;color:#fff;letter-spacing:.02em;text-shadow:0 1px 2px rgba(0,0,0,.5)}
+  .crest img{position:absolute;inset:1px;width:calc(100% - 2px);height:calc(100% - 2px);object-fit:contain}
+  .tname{font-weight:700;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .vs{display:flex;align-items:center;gap:6px}
+  .vs input{width:48px;text-align:center;font-weight:800;font-size:17px;padding:9px 6px;-moz-appearance:textfield}
+  .vs input::-webkit-outer-spin-button,.vs input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+  .vs .dash{color:var(--muted);font-weight:800}
+
+  /* Buttons */
+  .btnrow{display:flex;flex-wrap:wrap;gap:12px;margin:16px 0 4px;align-items:center}
+  .btn{font-family:inherit;font-weight:800;font-size:15px;border:0;border-radius:12px;padding:14px 22px;cursor:pointer;transition:.16s}
+  .btn.primary{background:var(--pink);color:#fff}
+  .btn.primary:hover{filter:brightness(1.08);transform:translateY(-1px)}
+  .btn.ghost{background:transparent;border:1px solid var(--line-strong);color:var(--ink)}
+  .btn.ghost:hover{border-color:var(--ink)}
+  .btn:disabled{opacity:.4;cursor:not-allowed;transform:none;filter:none}
+  .status{margin-top:14px;padding:13px 16px;border-radius:12px;font-size:14px;font-weight:600;display:none}
+  .status.ok{display:block;background:rgba(0,255,133,.10);border:1px solid rgba(0,255,133,.4);color:#b6ffdc}
+  .status.warn{display:block;background:rgba(255,213,74,.12);border:1px solid rgba(255,213,74,.45);color:#ffe9ad}
+  .status.err{display:block;background:rgba(233,0,82,.12);border:1px solid rgba(233,0,82,.45);color:#ffd0e0}
+  .codebox{width:100%;margin-top:12px;background:var(--panel-2);border:1px solid var(--line-strong);
+           color:var(--muted);border-radius:10px;padding:12px;font-family:ui-monospace,monospace;font-size:12px;resize:vertical;display:none}
+
+  /* Leaderboard */
+  .lb-wrap{border:1px solid var(--line);border-radius:14px;overflow:hidden;box-shadow:var(--shadow);margin-bottom:10px}
+  .lb-row{display:grid;grid-template-columns:40px 1fr auto auto auto auto;gap:12px;align-items:center;
+          padding:13px 18px;border-bottom:1px solid var(--line);background:var(--panel)}
+  .lb-row:last-child{border-bottom:0}
+  .lb-row.head{background:var(--panel-2);font-size:11.5px;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);font-weight:800}
+  .lb-row .rank{font-family:"Anton";font-size:21px;color:var(--muted)}
+  .lb-row:not(.head):nth-child(2) .rank{color:var(--gold)}
+  .lb-row .who{font-weight:800;font-size:16px}
+  .lb-row .pts{font-family:"Anton";font-size:25px}
+  .lb-row .mini{font-size:12px;color:var(--muted);text-align:center}
+  .lb-row .mini b{display:block;font-size:16px;color:var(--ink);font-family:"Anton";font-weight:400}
+  .lb-empty{padding:34px 18px;text-align:center;color:var(--muted)}
+  .section-h{font-family:"Anton";font-size:20px;letter-spacing:.02em;margin:24px 0 12px;text-transform:uppercase}
+  .winner{background:linear-gradient(120deg,rgba(0,255,133,.14),rgba(4,245,255,.06));
+    border:1px solid rgba(0,255,133,.35);border-radius:12px;padding:12px 16px;font-size:15px;margin-bottom:12px}
+  .winner b{color:var(--green)}
+  .wk-head{font-weight:800;font-size:14px;color:var(--muted);margin:2px 0 10px;text-transform:uppercase;letter-spacing:.05em}
+  .wk-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .wk-results,.wk-table{border:1px solid var(--line);border-radius:12px;overflow:hidden}
+  .wk-res{display:grid;grid-template-columns:1fr auto 1fr;gap:8px;align-items:center;padding:9px 13px;border-bottom:1px solid var(--line);font-size:13.5px}
+  .wk-res:last-child{border-bottom:0}
+  .wk-res span:first-child{text-align:right;font-weight:600}
+  .wk-res .sc{font-family:"Anton";font-size:15px;min-width:44px;text-align:center;color:var(--ink)}
+  .lb-row.wk{grid-template-columns:34px 1fr auto;padding:10px 14px}
+  .lb-row.wk .pts{font-size:20px}
+
+  /* Today's picks */
+  .today-head{display:flex;align-items:baseline;gap:12px;margin:4px 2px 14px;flex-wrap:wrap}
+  .today-head h3{font-family:"Anton";font-weight:400;font-size:clamp(20px,4vw,28px);margin:0;text-transform:uppercase;letter-spacing:.01em}
+  .today-head span{color:var(--muted);font-size:13px}
+  .mcard{background:var(--panel);border:1px solid var(--line);border-radius:16px;margin-bottom:14px;overflow:hidden;box-shadow:var(--shadow)}
+  .mtop{display:flex;align-items:center;gap:12px;padding:10px 16px;border-bottom:1px solid var(--line);background:var(--panel-2)}
+  .mtime{font-weight:800;font-size:13px}
+  .mmeta{font-size:12px;color:var(--muted)}
+  .tag{margin-left:auto;font-size:11px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;padding:4px 9px;border-radius:999px}
+  .tag.ft{background:rgba(0,255,133,.16);color:#b6ffdc}
+  .fixline{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:10px;padding:13px 16px}
+  .tp-team{display:flex;align-items:center;gap:9px;min-width:0;justify-content:flex-end}
+  .tp-team.a{flex-direction:row-reverse}
+  .tp-team .tn{font-weight:700;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .tp-score{font-family:"Anton";font-size:24px;text-align:center;min-width:56px}
+  .tp-score .v{color:var(--muted);font-size:16px}
+  .picks{display:flex;flex-wrap:wrap;gap:8px;padding:4px 16px 15px}
+  .tp-none,.tp-hidden{color:var(--muted);font-size:13px;padding:2px 0}
+  .chip{font-size:12.5px;font-weight:700;background:var(--panel-2);border:1px solid var(--line-strong);border-radius:999px;padding:5px 11px;white-space:nowrap;color:var(--ink)}
+  .chip .s{font-weight:800;margin-left:6px}
+  .chip.miss{color:var(--muted)}
+  .chip.b3{background:var(--green);color:#12002a;border-color:transparent}
+  .chip.b1{background:var(--cyan);color:#12002a;border-color:transparent}
+  .chip.b0{background:#3a2246;color:var(--muted);border-color:transparent}
+  footer{margin-top:38px;padding-top:20px;border-top:1px solid var(--line);color:var(--muted);font-size:12.5px}
+  code.k{background:var(--panel-2);border:1px solid var(--line);padding:2px 7px;border-radius:6px;font-size:12px;color:var(--cyan)}
+  @media(max-width:640px){
+    .match,.res-match{grid-template-columns:96px 1fr auto 1fr;gap:6px;padding:11px 12px}
+    .tname{font-size:13px}
+    .vs input{width:40px;font-size:15px}
+    .mno{font-size:10.5px}
+    .wk-grid{grid-template-columns:1fr}
+    .lb-row{grid-template-columns:32px 1fr auto auto auto;padding:12px}
+    .lb-row .mini.exact{display:none}
+    nav.tabs button{font-size:13px;padding:10px 4px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="hero" role="img" aria-label="Premier League 2026/27"></div>
+    <p class="kicker">The Eason Family League</p>
+    <h1>2026/27 <span class="yr">Predictor</span></h1>
+    <p class="sub">Predict all ten scorelines each gameweek. It's &pound;2 a week: &pound;1 to the weekly winner, &pound;1 into the end-of-season pot. Picks lock at 7:30pm on the Friday. One week opens at a time.</p>
+    <div class="scoring">
+      <span class="pill p3"><b>3</b> Exact scoreline</span>
+      <span class="pill p1"><b>1</b> Correct result only</span>
+      <span class="pill p0"><b>0</b> Wrong</span>
+    </div>
+  </header>
+
+  <nav class="tabs">
+    <button data-tab="predict" class="on">Predict</button>
+    <button data-tab="leaderboard">Leaderboard</button>
+    <button data-tab="today">Today's picks</button>
+    <button data-tab="week">This week</button>
+    <button data-tab="organiser">Results</button>
+  </nav>
+
+  <!-- PREDICT -->
+  <section class="view on" id="predict">
+    <div class="gwbar">
+      <button class="arrow" id="gwPrev" aria-label="Previous gameweek">&#8249;</button>
+      <select class="gw" id="gwSel" aria-label="Choose gameweek"></select>
+      <button class="arrow" id="gwNext" aria-label="Next gameweek">&#8250;</button>
+      <span class="gwtag" id="gwTag"></span>
+    </div>
+    <div class="locked-banner" id="lockBanner"></div>
+    <div class="namebar">
+      <label for="player">Who are you?</label>
+      <select id="player"><option value="">— choose your name —</option></select>
+      <input id="pin" type="password" inputmode="numeric" maxlength="4" placeholder="PIN" autocomplete="off" aria-label="Your 4-digit PIN">
+      <span class="progress" id="prog">0 of 10 predicted</span>
+      <span class="deadline" id="ddl"></span>
+      <span class="note" id="pinHint" style="flex-basis:100%"></span>
+    </div>
+    <div class="card"><div class="card-head"><h3 id="fxHead">Gameweek</h3></div><div id="fixtures"></div></div>
+    <div class="btnrow">
+      <button class="btn primary" id="submitBtn" disabled>Submit this gameweek</button>
+      <button class="btn ghost" id="codeBtn" type="button">Backup code</button>
+      <span class="note">Your picks are saved on this device as you type, so you won't lose them.</span>
+    </div>
+    <div class="status" id="predStatus"></div>
+    <textarea class="codebox" id="codeOut" rows="3" readonly></textarea>
+  </section>
+
+  <!-- LEADERBOARD -->
+  <section class="view" id="leaderboard">
+    <div class="btnrow" style="margin-top:0">
+      <button class="btn ghost" id="refreshLb" type="button">Refresh</button>
+      <span class="note" id="lbMeta"></span>
+    </div>
+    <div class="section-h">Rolling season table</div>
+    <div class="lb-wrap" id="seasonTable"></div>
+    <div class="section-h">Weekly prize table</div>
+    <div class="gwbar"><select class="gw" id="lbGwSel" aria-label="Leaderboard gameweek"></select></div>
+    <div id="weekPanel"></div>
+  </section>
+
+  <!-- TODAY'S PICKS -->
+  <section class="view" id="today">
+    <div class="btnrow" style="margin-top:0">
+      <button class="btn ghost" id="refreshToday" type="button">Refresh</button>
+      <span class="note">Everyone's predictions for the day's games. Picks appear once that gameweek has locked.</span>
+    </div>
+    <div id="todayOut"></div>
+  </section>
+
+  <!-- THIS WEEK -->
+  <section class="view" id="week">
+    <div class="btnrow" style="margin-top:0">
+      <button class="btn ghost" id="refreshWeek" type="button">Refresh</button>
+      <span class="note">Everyone's predictions for the gameweek, with scores as they land. Picks appear once the week has locked.</span>
+    </div>
+    <div class="gwbar"><select class="gw" id="weekGwSel" aria-label="Which gameweek"></select></div>
+    <div id="weekOut"></div>
+  </section>
+
+  <!-- ORGANISER / RESULTS -->
+  <section class="view" id="organiser">
+    <p class="note" style="margin:0 0 14px">Results are entered automatically by the results task as games finish. This tab is a manual fallback: pick a gameweek, type the full-time scores, and save.</p>
+    <div class="gwbar"><select class="gw" id="resGwSel" aria-label="Results gameweek"></select></div>
+    <div class="namebar">
+      <strong style="font-size:15px">Enter full-time scores</strong>
+      <input id="resPin" type="password" inputmode="numeric" maxlength="4" placeholder="Organiser PIN" autocomplete="off" aria-label="Organiser PIN" style="width:130px">
+      <span class="note" style="margin-left:auto">Leave a game blank until it's played. Your PIN protects results; the first save sets it.</span>
+    </div>
+    <div class="card"><div class="card-head"><h3 id="resHead">Gameweek</h3></div><div id="resFixtures"></div></div>
+    <div class="btnrow">
+      <button class="btn primary" id="saveRes" type="button">Save results to sheet</button>
+      <button class="btn ghost" id="loadRes" type="button">Reload saved results</button>
+    </div>
+    <div class="status" id="resStatus"></div>
+
+    <div class="namebar" style="margin-top:26px">
+      <strong style="font-size:15px">Import a backup code</strong>
+      <span class="note" style="margin-left:auto">If someone sent a code instead of submitting, paste it here.</span>
+    </div>
+    <textarea class="codebox" id="codeIn" rows="3" style="display:block" placeholder="Paste a backup code here..."></textarea>
+    <div class="btnrow"><button class="btn ghost" id="importBtn" type="button">Add this code to the sheet</button></div>
+    <div class="status" id="importStatus"></div>
+  </section>
+
+  <footer>
+    <p><strong>Premier League 2026/27</strong> &middot; 38 gameweeks &middot; 380 matches &middot; kick-off times shown UK.<br>
+    One week opens at a time. Predictions lock at 7:30pm on the Friday of each gameweek. Weekly winners take that week's pot; every point also rolls into the rolling season table.</p>
+  </footer>
+</div>
+
+<script>
+// AUTO-GENERATED from fixturedownload.com EPL 2026/27 — 380 fixtures, UK kickoffs converted to UTC
+const FIXTURES = {"1": [["Arsenal", "Coventry"], ["Hull", "Man Utd"], ["Everton", "Crystal Palace"], ["Ipswich", "Sunderland"], ["Nott'm Forest", "Leeds"], ["Brentford", "Spurs"], ["Brighton", "Aston Villa"], ["Man City", "Bournemouth"], ["Newcastle", "Liverpool"], ["Fulham", "Chelsea"]], "2": [["Bournemouth", "Everton"], ["Aston Villa", "Arsenal"], ["Chelsea", "Brighton"], ["Coventry", "Hull"], ["Crystal Palace", "Man City"], ["Leeds", "Brentford"], ["Liverpool", "Nott'm Forest"], ["Man Utd", "Ipswich"], ["Sunderland", "Fulham"], ["Spurs", "Newcastle"]], "3": [["Arsenal", "Chelsea"], ["Brentford", "Sunderland"], ["Brighton", "Leeds"], ["Everton", "Man Utd"], ["Fulham", "Crystal Palace"], ["Hull", "Aston Villa"], ["Ipswich", "Liverpool"], ["Man City", "Coventry"], ["Newcastle", "Bournemouth"], ["Nott'm Forest", "Spurs"]], "4": [["Bournemouth", "Brentford"], ["Aston Villa", "Nott'm Forest"], ["Chelsea", "Hull"], ["Coventry", "Brighton"], ["Crystal Palace", "Ipswich"], ["Leeds", "Newcastle"], ["Liverpool", "Fulham"], ["Man Utd", "Man City"], ["Sunderland", "Arsenal"], ["Spurs", "Everton"]], "5": [["Bournemouth", "Liverpool"], ["Brentford", "Chelsea"], ["Brighton", "Arsenal"], ["Everton", "Ipswich"], ["Fulham", "Man Utd"], ["Leeds", "Crystal Palace"], ["Man City", "Sunderland"], ["Newcastle", "Hull"], ["Nott'm Forest", "Coventry"], ["Spurs", "Aston Villa"]], "6": [["Arsenal", "Leeds"], ["Aston Villa", "Brentford"], ["Chelsea", "Bournemouth"], ["Coventry", "Newcastle"], ["Crystal Palace", "Nott'm Forest"], ["Hull", "Everton"], ["Ipswich", "Fulham"], ["Liverpool", "Man City"], ["Man Utd", "Spurs"], ["Sunderland", "Brighton"]], "7": [["Bournemouth", "Sunderland"], ["Brentford", "Liverpool"], ["Brighton", "Crystal Palace"], ["Everton", "Chelsea"], ["Fulham", "Hull"], ["Leeds", "Man Utd"], ["Man City", "Ipswich"], ["Newcastle", "Aston Villa"], ["Nott'm Forest", "Arsenal"], ["Spurs", "Coventry"]], "8": [["Arsenal", "Everton"], ["Aston Villa", "Man City"], ["Chelsea", "Spurs"], ["Coventry", "Fulham"], ["Crystal Palace", "Newcastle"], ["Hull", "Brentford"], ["Ipswich", "Nott'm Forest"], ["Liverpool", "Brighton"], ["Man Utd", "Bournemouth"], ["Sunderland", "Leeds"]], "9": [["Bournemouth", "Leeds"], ["Aston Villa", "Fulham"], ["Brentford", "Nott'm Forest"], ["Chelsea", "Man Utd"], ["Coventry", "Sunderland"], ["Hull", "Ipswich"], ["Liverpool", "Arsenal"], ["Man City", "Brighton"], ["Newcastle", "Everton"], ["Spurs", "Crystal Palace"]], "10": [["Arsenal", "Hull"], ["Brighton", "Brentford"], ["Crystal Palace", "Liverpool"], ["Everton", "Coventry"], ["Fulham", "Newcastle"], ["Ipswich", "Bournemouth"], ["Leeds", "Spurs"], ["Man Utd", "Aston Villa"], ["Nott'm Forest", "Man City"], ["Sunderland", "Chelsea"]], "11": [["Bournemouth", "Nott'm Forest"], ["Aston Villa", "Sunderland"], ["Brentford", "Everton"], ["Chelsea", "Leeds"], ["Coventry", "Crystal Palace"], ["Hull", "Brighton"], ["Liverpool", "Man Utd"], ["Man City", "Fulham"], ["Newcastle", "Arsenal"], ["Spurs", "Ipswich"]], "12": [["Arsenal", "Man City"], ["Brighton", "Newcastle"], ["Crystal Palace", "Hull"], ["Everton", "Liverpool"], ["Fulham", "Bournemouth"], ["Ipswich", "Aston Villa"], ["Leeds", "Coventry"], ["Man Utd", "Brentford"], ["Nott'm Forest", "Chelsea"], ["Sunderland", "Spurs"]], "13": [["Bournemouth", "Brighton"], ["Aston Villa", "Everton"], ["Brentford", "Arsenal"], ["Chelsea", "Crystal Palace"], ["Coventry", "Ipswich"], ["Hull", "Nott'm Forest"], ["Liverpool", "Sunderland"], ["Man City", "Leeds"], ["Newcastle", "Man Utd"], ["Spurs", "Fulham"]], "14": [["Bournemouth", "Hull"], ["Aston Villa", "Crystal Palace"], ["Brentford", "Man City"], ["Chelsea", "Liverpool"], ["Everton", "Fulham"], ["Leeds", "Ipswich"], ["Man Utd", "Coventry"], ["Newcastle", "Sunderland"], ["Nott'm Forest", "Brighton"], ["Spurs", "Arsenal"]], "15": [["Arsenal", "Bournemouth"], ["Brighton", "Everton"], ["Coventry", "Aston Villa"], ["Crystal Palace", "Man Utd"], ["Fulham", "Brentford"], ["Hull", "Spurs"], ["Ipswich", "Newcastle"], ["Liverpool", "Leeds"], ["Man City", "Chelsea"], ["Sunderland", "Nott'm Forest"]], "16": [["Bournemouth", "Coventry"], ["Arsenal", "Man Utd"], ["Brentford", "Newcastle"], ["Brighton", "Ipswich"], ["Chelsea", "Aston Villa"], ["Leeds", "Fulham"], ["Liverpool", "Spurs"], ["Man City", "Hull"], ["Nott'm Forest", "Everton"], ["Sunderland", "Crystal Palace"]], "17": [["Aston Villa", "Leeds"], ["Coventry", "Chelsea"], ["Crystal Palace", "Arsenal"], ["Everton", "Sunderland"], ["Fulham", "Brighton"], ["Hull", "Liverpool"], ["Ipswich", "Brentford"], ["Man Utd", "Nott'm Forest"], ["Newcastle", "Man City"], ["Spurs", "Bournemouth"]], "18": [["Aston Villa", "Liverpool"], ["Coventry", "Brentford"], ["Crystal Palace", "Bournemouth"], ["Everton", "Man City"], ["Fulham", "Arsenal"], ["Hull", "Leeds"], ["Ipswich", "Chelsea"], ["Man Utd", "Sunderland"], ["Newcastle", "Nott'm Forest"], ["Spurs", "Brighton"]], "19": [["Bournemouth", "Aston Villa"], ["Arsenal", "Ipswich"], ["Brentford", "Crystal Palace"], ["Brighton", "Man Utd"], ["Chelsea", "Newcastle"], ["Leeds", "Everton"], ["Liverpool", "Coventry"], ["Man City", "Spurs"], ["Nott'm Forest", "Fulham"], ["Sunderland", "Hull"]], "20": [["Arsenal", "Brentford"], ["Brighton", "Bournemouth"], ["Crystal Palace", "Chelsea"], ["Everton", "Aston Villa"], ["Fulham", "Spurs"], ["Ipswich", "Coventry"], ["Leeds", "Man City"], ["Man Utd", "Newcastle"], ["Nott'm Forest", "Hull"], ["Sunderland", "Liverpool"]], "21": [["Bournemouth", "Ipswich"], ["Aston Villa", "Man Utd"], ["Brentford", "Brighton"], ["Chelsea", "Sunderland"], ["Coventry", "Everton"], ["Hull", "Arsenal"], ["Liverpool", "Crystal Palace"], ["Man City", "Nott'm Forest"], ["Newcastle", "Fulham"], ["Spurs", "Leeds"]], "22": [["Arsenal", "Newcastle"], ["Brighton", "Man City"], ["Crystal Palace", "Spurs"], ["Everton", "Brentford"], ["Fulham", "Aston Villa"], ["Ipswich", "Hull"], ["Leeds", "Chelsea"], ["Man Utd", "Liverpool"], ["Nott'm Forest", "Bournemouth"], ["Sunderland", "Coventry"]], "23": [["Bournemouth", "Fulham"], ["Aston Villa", "Ipswich"], ["Brentford", "Man Utd"], ["Chelsea", "Nott'm Forest"], ["Coventry", "Leeds"], ["Hull", "Crystal Palace"], ["Liverpool", "Everton"], ["Man City", "Arsenal"], ["Newcastle", "Brighton"], ["Spurs", "Sunderland"]], "24": [["Arsenal", "Liverpool"], ["Brighton", "Hull"], ["Crystal Palace", "Coventry"], ["Everton", "Newcastle"], ["Fulham", "Man City"], ["Ipswich", "Spurs"], ["Leeds", "Bournemouth"], ["Man Utd", "Chelsea"], ["Nott'm Forest", "Brentford"], ["Sunderland", "Aston Villa"]], "25": [["Aston Villa", "Bournemouth"], ["Coventry", "Liverpool"], ["Crystal Palace", "Brentford"], ["Everton", "Leeds"], ["Fulham", "Nott'm Forest"], ["Hull", "Sunderland"], ["Ipswich", "Arsenal"], ["Man Utd", "Brighton"], ["Newcastle", "Chelsea"], ["Spurs", "Man City"]], "26": [["Bournemouth", "Crystal Palace"], ["Arsenal", "Fulham"], ["Brentford", "Coventry"], ["Brighton", "Spurs"], ["Chelsea", "Ipswich"], ["Leeds", "Aston Villa"], ["Liverpool", "Hull"], ["Man City", "Newcastle"], ["Nott'm Forest", "Man Utd"], ["Sunderland", "Everton"]], "27": [["Aston Villa", "Chelsea"], ["Coventry", "Bournemouth"], ["Crystal Palace", "Sunderland"], ["Everton", "Nott'm Forest"], ["Fulham", "Leeds"], ["Hull", "Man City"], ["Ipswich", "Brighton"], ["Man Utd", "Arsenal"], ["Newcastle", "Brentford"], ["Spurs", "Liverpool"]], "28": [["Bournemouth", "Spurs"], ["Arsenal", "Crystal Palace"], ["Brentford", "Ipswich"], ["Brighton", "Fulham"], ["Chelsea", "Coventry"], ["Leeds", "Hull"], ["Liverpool", "Aston Villa"], ["Man City", "Everton"], ["Nott'm Forest", "Newcastle"], ["Sunderland", "Man Utd"]], "29": [["Bournemouth", "Newcastle"], ["Aston Villa", "Hull"], ["Chelsea", "Arsenal"], ["Coventry", "Man City"], ["Crystal Palace", "Fulham"], ["Leeds", "Brighton"], ["Liverpool", "Ipswich"], ["Man Utd", "Everton"], ["Sunderland", "Brentford"], ["Spurs", "Nott'm Forest"]], "30": [["Arsenal", "Sunderland"], ["Brentford", "Bournemouth"], ["Brighton", "Coventry"], ["Everton", "Spurs"], ["Fulham", "Liverpool"], ["Hull", "Chelsea"], ["Ipswich", "Crystal Palace"], ["Man City", "Man Utd"], ["Newcastle", "Leeds"], ["Nott'm Forest", "Aston Villa"]], "31": [["Bournemouth", "Man City"], ["Aston Villa", "Brighton"], ["Chelsea", "Fulham"], ["Coventry", "Arsenal"], ["Crystal Palace", "Everton"], ["Leeds", "Nott'm Forest"], ["Liverpool", "Newcastle"], ["Man Utd", "Hull"], ["Sunderland", "Ipswich"], ["Spurs", "Brentford"]], "32": [["Arsenal", "Aston Villa"], ["Brentford", "Leeds"], ["Brighton", "Chelsea"], ["Everton", "Bournemouth"], ["Fulham", "Sunderland"], ["Hull", "Coventry"], ["Ipswich", "Man Utd"], ["Man City", "Crystal Palace"], ["Newcastle", "Spurs"], ["Nott'm Forest", "Liverpool"]], "33": [["Bournemouth", "Arsenal"], ["Aston Villa", "Coventry"], ["Brentford", "Fulham"], ["Chelsea", "Man City"], ["Everton", "Brighton"], ["Leeds", "Liverpool"], ["Man Utd", "Crystal Palace"], ["Newcastle", "Ipswich"], ["Nott'm Forest", "Sunderland"], ["Spurs", "Hull"]], "34": [["Arsenal", "Spurs"], ["Brighton", "Nott'm Forest"], ["Coventry", "Man Utd"], ["Crystal Palace", "Aston Villa"], ["Fulham", "Everton"], ["Hull", "Bournemouth"], ["Ipswich", "Leeds"], ["Liverpool", "Chelsea"], ["Man City", "Brentford"], ["Sunderland", "Newcastle"]], "35": [["Bournemouth", "Man Utd"], ["Brentford", "Aston Villa"], ["Brighton", "Sunderland"], ["Everton", "Hull"], ["Fulham", "Ipswich"], ["Leeds", "Arsenal"], ["Man City", "Liverpool"], ["Newcastle", "Coventry"], ["Nott'm Forest", "Crystal Palace"], ["Spurs", "Chelsea"]], "36": [["Arsenal", "Nott'm Forest"], ["Aston Villa", "Newcastle"], ["Chelsea", "Everton"], ["Coventry", "Spurs"], ["Crystal Palace", "Brighton"], ["Hull", "Fulham"], ["Ipswich", "Man City"], ["Liverpool", "Brentford"], ["Man Utd", "Leeds"], ["Sunderland", "Bournemouth"]], "37": [["Bournemouth", "Chelsea"], ["Brentford", "Hull"], ["Brighton", "Liverpool"], ["Everton", "Arsenal"], ["Fulham", "Coventry"], ["Leeds", "Sunderland"], ["Man City", "Aston Villa"], ["Newcastle", "Crystal Palace"], ["Nott'm Forest", "Ipswich"], ["Spurs", "Man Utd"]], "38": [["Arsenal", "Brighton"], ["Aston Villa", "Spurs"], ["Chelsea", "Brentford"], ["Coventry", "Nott'm Forest"], ["Crystal Palace", "Leeds"], ["Hull", "Newcastle"], ["Ipswich", "Everton"], ["Liverpool", "Bournemouth"], ["Man Utd", "Fulham"], ["Sunderland", "Man City"]]};
+const DEADLINES = {"1": "2026-08-21T18:30:00Z", "2": "2026-08-28T18:30:00Z", "3": "2026-09-04T18:30:00Z", "4": "2026-09-11T18:30:00Z", "5": "2026-09-18T18:30:00Z", "6": "2026-10-09T18:30:00Z", "7": "2026-10-16T18:30:00Z", "8": "2026-10-23T18:30:00Z", "9": "2026-10-30T19:30:00Z", "10": "2026-11-06T19:30:00Z", "11": "2026-11-20T19:30:00Z", "12": "2026-11-27T19:30:00Z", "13": "2026-11-27T19:30:00Z", "14": "2026-12-04T19:30:00Z", "15": "2026-12-11T19:30:00Z", "16": "2026-12-18T19:30:00Z", "17": "2026-12-25T19:30:00Z", "18": "2026-12-25T19:30:00Z", "19": "2027-01-01T19:30:00Z", "20": "2027-01-01T19:30:00Z", "21": "2027-01-15T19:30:00Z", "22": "2027-01-22T19:30:00Z", "23": "2027-01-29T19:30:00Z", "24": "2027-02-05T19:30:00Z", "25": "2027-02-05T19:30:00Z", "26": "2027-02-19T19:30:00Z", "27": "2027-02-26T19:30:00Z", "28": "2027-02-26T19:30:00Z", "29": "2027-03-12T19:30:00Z", "30": "2027-03-19T19:30:00Z", "31": "2027-04-09T18:30:00Z", "32": "2027-04-16T18:30:00Z", "33": "2027-04-23T18:30:00Z", "34": "2027-04-30T18:30:00Z", "35": "2027-05-07T18:30:00Z", "36": "2027-05-14T18:30:00Z", "37": "2027-05-21T18:30:00Z", "38": "2027-05-28T18:30:00Z"};
+const KICKOFFS = {"1": ["2026-08-21T19:00:00Z", "2026-08-22T11:30:00Z", "2026-08-22T14:00:00Z", "2026-08-22T14:00:00Z", "2026-08-22T14:00:00Z", "2026-08-22T16:30:00Z", "2026-08-23T13:00:00Z", "2026-08-23T13:00:00Z", "2026-08-23T15:30:00Z", "2026-08-24T19:00:00Z"], "2": ["2026-08-29T14:00:00Z", "2026-08-29T14:00:00Z", "2026-08-29T14:00:00Z", "2026-08-29T14:00:00Z", "2026-08-29T14:00:00Z", "2026-08-29T14:00:00Z", "2026-08-29T14:00:00Z", "2026-08-29T14:00:00Z", "2026-08-29T14:00:00Z", "2026-08-29T14:00:00Z"], "3": ["2026-09-05T14:00:00Z", "2026-09-05T14:00:00Z", "2026-09-05T14:00:00Z", "2026-09-05T14:00:00Z", "2026-09-05T14:00:00Z", "2026-09-05T14:00:00Z", "2026-09-05T14:00:00Z", "2026-09-05T14:00:00Z", "2026-09-05T14:00:00Z", "2026-09-05T14:00:00Z"], "4": ["2026-09-12T14:00:00Z", "2026-09-12T14:00:00Z", "2026-09-12T14:00:00Z", "2026-09-12T14:00:00Z", "2026-09-12T14:00:00Z", "2026-09-12T14:00:00Z", "2026-09-12T14:00:00Z", "2026-09-12T14:00:00Z", "2026-09-12T14:00:00Z", "2026-09-12T14:00:00Z"], "5": ["2026-09-19T14:00:00Z", "2026-09-19T14:00:00Z", "2026-09-19T14:00:00Z", "2026-09-19T14:00:00Z", "2026-09-19T14:00:00Z", "2026-09-19T14:00:00Z", "2026-09-19T14:00:00Z", "2026-09-19T14:00:00Z", "2026-09-19T14:00:00Z", "2026-09-19T14:00:00Z"], "6": ["2026-10-10T14:00:00Z", "2026-10-10T14:00:00Z", "2026-10-10T14:00:00Z", "2026-10-10T14:00:00Z", "2026-10-10T14:00:00Z", "2026-10-10T14:00:00Z", "2026-10-10T14:00:00Z", "2026-10-10T14:00:00Z", "2026-10-10T14:00:00Z", "2026-10-10T14:00:00Z"], "7": ["2026-10-17T14:00:00Z", "2026-10-17T14:00:00Z", "2026-10-17T14:00:00Z", "2026-10-17T14:00:00Z", "2026-10-17T14:00:00Z", "2026-10-17T14:00:00Z", "2026-10-17T14:00:00Z", "2026-10-17T14:00:00Z", "2026-10-17T14:00:00Z", "2026-10-17T14:00:00Z"], "8": ["2026-10-24T14:00:00Z", "2026-10-24T14:00:00Z", "2026-10-24T14:00:00Z", "2026-10-24T14:00:00Z", "2026-10-24T14:00:00Z", "2026-10-24T14:00:00Z", "2026-10-24T14:00:00Z", "2026-10-24T14:00:00Z", "2026-10-24T14:00:00Z", "2026-10-24T14:00:00Z"], "9": ["2026-10-31T15:00:00Z", "2026-10-31T15:00:00Z", "2026-10-31T15:00:00Z", "2026-10-31T15:00:00Z", "2026-10-31T15:00:00Z", "2026-10-31T15:00:00Z", "2026-10-31T15:00:00Z", "2026-10-31T15:00:00Z", "2026-10-31T15:00:00Z", "2026-10-31T15:00:00Z"], "10": ["2026-11-07T15:00:00Z", "2026-11-07T15:00:00Z", "2026-11-07T15:00:00Z", "2026-11-07T15:00:00Z", "2026-11-07T15:00:00Z", "2026-11-07T15:00:00Z", "2026-11-07T15:00:00Z", "2026-11-07T15:00:00Z", "2026-11-07T15:00:00Z", "2026-11-07T15:00:00Z"], "11": ["2026-11-21T15:00:00Z", "2026-11-21T15:00:00Z", "2026-11-21T15:00:00Z", "2026-11-21T15:00:00Z", "2026-11-21T15:00:00Z", "2026-11-21T15:00:00Z", "2026-11-21T15:00:00Z", "2026-11-21T15:00:00Z", "2026-11-21T15:00:00Z", "2026-11-21T15:00:00Z"], "12": ["2026-11-28T15:00:00Z", "2026-11-28T15:00:00Z", "2026-11-28T15:00:00Z", "2026-11-28T15:00:00Z", "2026-11-28T15:00:00Z", "2026-11-28T15:00:00Z", "2026-11-28T15:00:00Z", "2026-11-28T15:00:00Z", "2026-11-28T15:00:00Z", "2026-11-28T15:00:00Z"], "13": ["2026-12-02T20:00:00Z", "2026-12-02T20:00:00Z", "2026-12-02T20:00:00Z", "2026-12-02T20:00:00Z", "2026-12-02T20:00:00Z", "2026-12-02T20:00:00Z", "2026-12-02T20:00:00Z", "2026-12-02T20:00:00Z", "2026-12-02T20:00:00Z", "2026-12-02T20:00:00Z"], "14": ["2026-12-05T15:00:00Z", "2026-12-05T15:00:00Z", "2026-12-05T15:00:00Z", "2026-12-05T15:00:00Z", "2026-12-05T15:00:00Z", "2026-12-05T15:00:00Z", "2026-12-05T15:00:00Z", "2026-12-05T15:00:00Z", "2026-12-05T15:00:00Z", "2026-12-05T15:00:00Z"], "15": ["2026-12-12T15:00:00Z", "2026-12-12T15:00:00Z", "2026-12-12T15:00:00Z", "2026-12-12T15:00:00Z", "2026-12-12T15:00:00Z", "2026-12-12T15:00:00Z", "2026-12-12T15:00:00Z", "2026-12-12T15:00:00Z", "2026-12-12T15:00:00Z", "2026-12-12T15:00:00Z"], "16": ["2026-12-19T15:00:00Z", "2026-12-19T15:00:00Z", "2026-12-19T15:00:00Z", "2026-12-19T15:00:00Z", "2026-12-19T15:00:00Z", "2026-12-19T15:00:00Z", "2026-12-19T15:00:00Z", "2026-12-19T15:00:00Z", "2026-12-19T15:00:00Z", "2026-12-19T15:00:00Z"], "17": ["2026-12-26T15:00:00Z", "2026-12-26T15:00:00Z", "2026-12-26T15:00:00Z", "2026-12-26T15:00:00Z", "2026-12-26T15:00:00Z", "2026-12-26T15:00:00Z", "2026-12-26T15:00:00Z", "2026-12-26T15:00:00Z", "2026-12-26T15:00:00Z", "2026-12-26T15:00:00Z"], "18": ["2026-12-30T20:00:00Z", "2026-12-30T20:00:00Z", "2026-12-30T20:00:00Z", "2026-12-30T20:00:00Z", "2026-12-30T20:00:00Z", "2026-12-30T20:00:00Z", "2026-12-30T20:00:00Z", "2026-12-30T20:00:00Z", "2026-12-30T20:00:00Z", "2026-12-30T20:00:00Z"], "19": ["2027-01-02T15:00:00Z", "2027-01-02T15:00:00Z", "2027-01-02T15:00:00Z", "2027-01-02T15:00:00Z", "2027-01-02T15:00:00Z", "2027-01-02T15:00:00Z", "2027-01-02T15:00:00Z", "2027-01-02T15:00:00Z", "2027-01-02T15:00:00Z", "2027-01-02T15:00:00Z"], "20": ["2027-01-06T20:00:00Z", "2027-01-06T20:00:00Z", "2027-01-06T20:00:00Z", "2027-01-06T20:00:00Z", "2027-01-06T20:00:00Z", "2027-01-06T20:00:00Z", "2027-01-06T20:00:00Z", "2027-01-06T20:00:00Z", "2027-01-06T20:00:00Z", "2027-01-06T20:00:00Z"], "21": ["2027-01-16T15:00:00Z", "2027-01-16T15:00:00Z", "2027-01-16T15:00:00Z", "2027-01-16T15:00:00Z", "2027-01-16T15:00:00Z", "2027-01-16T15:00:00Z", "2027-01-16T15:00:00Z", "2027-01-16T15:00:00Z", "2027-01-16T15:00:00Z", "2027-01-16T15:00:00Z"], "22": ["2027-01-23T15:00:00Z", "2027-01-23T15:00:00Z", "2027-01-23T15:00:00Z", "2027-01-23T15:00:00Z", "2027-01-23T15:00:00Z", "2027-01-23T15:00:00Z", "2027-01-23T15:00:00Z", "2027-01-23T15:00:00Z", "2027-01-23T15:00:00Z", "2027-01-23T15:00:00Z"], "23": ["2027-01-30T15:00:00Z", "2027-01-30T15:00:00Z", "2027-01-30T15:00:00Z", "2027-01-30T15:00:00Z", "2027-01-30T15:00:00Z", "2027-01-30T15:00:00Z", "2027-01-30T15:00:00Z", "2027-01-30T15:00:00Z", "2027-01-30T15:00:00Z", "2027-01-30T15:00:00Z"], "24": ["2027-02-06T15:00:00Z", "2027-02-06T15:00:00Z", "2027-02-06T15:00:00Z", "2027-02-06T15:00:00Z", "2027-02-06T15:00:00Z", "2027-02-06T15:00:00Z", "2027-02-06T15:00:00Z", "2027-02-06T15:00:00Z", "2027-02-06T15:00:00Z", "2027-02-06T15:00:00Z"], "25": ["2027-02-10T20:00:00Z", "2027-02-10T20:00:00Z", "2027-02-10T20:00:00Z", "2027-02-10T20:00:00Z", "2027-02-10T20:00:00Z", "2027-02-10T20:00:00Z", "2027-02-10T20:00:00Z", "2027-02-10T20:00:00Z", "2027-02-10T20:00:00Z", "2027-02-10T20:00:00Z"], "26": ["2027-02-20T15:00:00Z", "2027-02-20T15:00:00Z", "2027-02-20T15:00:00Z", "2027-02-20T15:00:00Z", "2027-02-20T15:00:00Z", "2027-02-20T15:00:00Z", "2027-02-20T15:00:00Z", "2027-02-20T15:00:00Z", "2027-02-20T15:00:00Z", "2027-02-20T15:00:00Z"], "27": ["2027-02-27T15:00:00Z", "2027-02-27T15:00:00Z", "2027-02-27T15:00:00Z", "2027-02-27T15:00:00Z", "2027-02-27T15:00:00Z", "2027-02-27T15:00:00Z", "2027-02-27T15:00:00Z", "2027-02-27T15:00:00Z", "2027-02-27T15:00:00Z", "2027-02-27T15:00:00Z"], "28": ["2027-03-03T20:00:00Z", "2027-03-03T20:00:00Z", "2027-03-03T20:00:00Z", "2027-03-03T20:00:00Z", "2027-03-03T20:00:00Z", "2027-03-03T20:00:00Z", "2027-03-03T20:00:00Z", "2027-03-03T20:00:00Z", "2027-03-03T20:00:00Z", "2027-03-03T20:00:00Z"], "29": ["2027-03-13T15:00:00Z", "2027-03-13T15:00:00Z", "2027-03-13T15:00:00Z", "2027-03-13T15:00:00Z", "2027-03-13T15:00:00Z", "2027-03-13T15:00:00Z", "2027-03-13T15:00:00Z", "2027-03-13T15:00:00Z", "2027-03-13T15:00:00Z", "2027-03-13T15:00:00Z"], "30": ["2027-03-20T15:00:00Z", "2027-03-20T15:00:00Z", "2027-03-20T15:00:00Z", "2027-03-20T15:00:00Z", "2027-03-20T15:00:00Z", "2027-03-20T15:00:00Z", "2027-03-20T15:00:00Z", "2027-03-20T15:00:00Z", "2027-03-20T15:00:00Z", "2027-03-20T15:00:00Z"], "31": ["2027-04-10T14:00:00Z", "2027-04-10T14:00:00Z", "2027-04-10T14:00:00Z", "2027-04-10T14:00:00Z", "2027-04-10T14:00:00Z", "2027-04-10T14:00:00Z", "2027-04-10T14:00:00Z", "2027-04-10T14:00:00Z", "2027-04-10T14:00:00Z", "2027-04-10T14:00:00Z"], "32": ["2027-04-17T14:00:00Z", "2027-04-17T14:00:00Z", "2027-04-17T14:00:00Z", "2027-04-17T14:00:00Z", "2027-04-17T14:00:00Z", "2027-04-17T14:00:00Z", "2027-04-17T14:00:00Z", "2027-04-17T14:00:00Z", "2027-04-17T14:00:00Z", "2027-04-17T14:00:00Z"], "33": ["2027-04-24T14:00:00Z", "2027-04-24T14:00:00Z", "2027-04-24T14:00:00Z", "2027-04-24T14:00:00Z", "2027-04-24T14:00:00Z", "2027-04-24T14:00:00Z", "2027-04-24T14:00:00Z", "2027-04-24T14:00:00Z", "2027-04-24T14:00:00Z", "2027-04-24T14:00:00Z"], "34": ["2027-05-01T14:00:00Z", "2027-05-01T14:00:00Z", "2027-05-01T14:00:00Z", "2027-05-01T14:00:00Z", "2027-05-01T14:00:00Z", "2027-05-01T14:00:00Z", "2027-05-01T14:00:00Z", "2027-05-01T14:00:00Z", "2027-05-01T14:00:00Z", "2027-05-01T14:00:00Z"], "35": ["2027-05-08T14:00:00Z", "2027-05-08T14:00:00Z", "2027-05-08T14:00:00Z", "2027-05-08T14:00:00Z", "2027-05-08T14:00:00Z", "2027-05-08T14:00:00Z", "2027-05-08T14:00:00Z", "2027-05-08T14:00:00Z", "2027-05-08T14:00:00Z", "2027-05-08T14:00:00Z"], "36": ["2027-05-15T14:00:00Z", "2027-05-15T14:00:00Z", "2027-05-15T14:00:00Z", "2027-05-15T14:00:00Z", "2027-05-15T14:00:00Z", "2027-05-15T14:00:00Z", "2027-05-15T14:00:00Z", "2027-05-15T14:00:00Z", "2027-05-15T14:00:00Z", "2027-05-15T14:00:00Z"], "37": ["2027-05-23T14:00:00Z", "2027-05-23T14:00:00Z", "2027-05-23T14:00:00Z", "2027-05-23T14:00:00Z", "2027-05-23T14:00:00Z", "2027-05-23T14:00:00Z", "2027-05-23T14:00:00Z", "2027-05-23T14:00:00Z", "2027-05-23T14:00:00Z", "2027-05-23T14:00:00Z"], "38": ["2027-05-30T15:00:00Z", "2027-05-30T15:00:00Z", "2027-05-30T15:00:00Z", "2027-05-30T15:00:00Z", "2027-05-30T15:00:00Z", "2027-05-30T15:00:00Z", "2027-05-30T15:00:00Z", "2027-05-30T15:00:00Z", "2027-05-30T15:00:00Z", "2027-05-30T15:00:00Z"]};
+const TEAM_COLORS = {"Arsenal": "#EF0107", "Aston Villa": "#670E36", "Bournemouth": "#DA291C", "Brentford": "#E30613", "Brighton": "#0057B8", "Chelsea": "#034694", "Coventry": "#4B92DB", "Crystal Palace": "#1B458F", "Everton": "#003399", "Fulham": "#000000", "Hull": "#F5A12D", "Ipswich": "#3A64A3", "Leeds": "#1D428A", "Liverpool": "#C8102E", "Man City": "#6CABDD", "Man Utd": "#DA291C", "Newcastle": "#241F20", "Nott'm Forest": "#DD0000", "Spurs": "#132257", "Sunderland": "#EB172B"};
+const TEAM_SHORT = {"Arsenal": "ARS", "Aston Villa": "AVL", "Bournemouth": "BOU", "Brentford": "BRE", "Brighton": "BHA", "Chelsea": "CHE", "Coventry": "COV", "Crystal Palace": "CRY", "Everton": "EVE", "Fulham": "FUL", "Hull": "HUL", "Ipswich": "IPS", "Leeds": "LEE", "Liverpool": "LIV", "Man City": "MCI", "Man Utd": "MUN", "Newcastle": "NEW", "Nott'm Forest": "NFO", "Spurs": "TOT", "Sunderland": "SUN"};
+
+/* ============================================================
+   CONFIG  — the only bits you need to touch
+   ============================================================ */
+// 1) Paste the NEW Premier League Apps Script web-app URL here (see SETUP-PL.md).
+//    Leave it empty until you've deployed the new sheet. Do NOT reuse the World Cup URL.
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxze8XBKF08zQM6qInf0j1QO34-_ngjJaear9W0dkJV7uUblCbZorll_3jRxTX9LRbJJA/exec";
+
+// 2) Everyone playing. Edit this one line to add or remove players.
+const PLAYERS = ["Scott", "Vickie", "Isobel", "Joseph", "Nat", "Dave E", "Maureen", "Sean", "Jen", "Derek", "Dave W", "Jacob", "Esme", "Dave B", "Claire", "Olivia", "Josh"];
+
+/* ============================================================
+   HELPERS
+   ============================================================ */
+const $=s=>document.querySelector(s);
+const $$=s=>document.querySelectorAll(s);
+const GWS=Object.keys(FIXTURES).map(Number).sort((a,b)=>a-b);
+function dMs(gw){return new Date(DEADLINES[gw]).getTime();}
+function locked(gw){return Date.now()>dMs(gw);}
+function currentGW(){for(const g of GWS){if(!locked(g))return g;}return GWS[GWS.length-1];}
+function stageOf(gw){return "GW"+gw;}
+function lsKey(gw,name){return "pl2627_GW"+gw+"_"+name;}
+function safeLS(fn){try{return fn();}catch(e){return null;}}
+function fmtKO(iso){return new Date(iso).toLocaleString("en-GB",{weekday:"short",day:"numeric",month:"short",hour:"2-digit",minute:"2-digit",timeZone:"Europe/London"});}
+function fmtDeadline(gw){return new Date(DEADLINES[gw]).toLocaleString("en-GB",{weekday:"short",day:"numeric",month:"short",hour:"2-digit",minute:"2-digit",timeZone:"Europe/London"});}
+
+let selGW=currentGW();     // gameweek shown on the Predict tab
+let lbGW=null;             // gameweek shown in the leaderboard week panel
+let wkGW=null;             // gameweek shown in the This week tab
+
+const TEAM_SLUG={"Arsenal":"arsenal","Aston Villa":"aston-villa","Bournemouth":"bournemouth","Brentford":"brentford","Brighton":"brighton","Chelsea":"chelsea","Coventry":"coventry","Crystal Palace":"crystal-palace","Everton":"everton","Fulham":"fulham","Hull":"hull","Ipswich":"ipswich","Leeds":"leeds","Liverpool":"liverpool","Man City":"man-city","Man Utd":"man-utd","Newcastle":"newcastle","Nott'm Forest":"nottingham-forest","Spurs":"tottenham","Sunderland":"sunderland"};
+// Shows badges/<slug>.png if the file exists; if not, the image removes itself and a
+// club-coloured tile with the abbreviation shows instead. No code change needed to add real crests.
+function badgeHTML(name){
+  const c=(TEAM_COLORS[name]||"#888"), s=(TEAM_SHORT[name]||"?"), g=(TEAM_SLUG[name]||"x");
+  return '<span class="crest" style="background:'+c+'"><i>'+s+'</i><img src="badges/'+g+'.png" alt="" loading="lazy" onload="this.parentNode.style.background=&#39;transparent&#39;;var q=this.parentNode.querySelector(&#39;i&#39;);if(q)q.style.display=&#39;none&#39;" onerror="this.remove()"></span>';
+}
+function teamSide(name,away){
+  return '<div class="side '+(away?'away':'')+'">'+badgeHTML(name)+'<span class="tname">'+name+'</span></div>';
+}
+
+/* ============================================================
+   PREDICT
+   ============================================================ */
+function buildPlayers(){
+  const sel=$("#player");
+  PLAYERS.forEach(p=>{const o=document.createElement("option");o.value=p;o.textContent=p;sel.appendChild(o);});
+}
+function buildGwSelectors(){
+  const maxGW=currentGW();
+  ["#gwSel","#lbGwSel","#resGwSel","#weekGwSel"].forEach(id=>{
+    const sel=$(id);
+    GWS.filter(g=>g<=maxGW).forEach(g=>{const o=document.createElement("option");o.value=g;o.textContent="Gameweek "+g;sel.appendChild(o);});
+  });
+  $("#gwSel").value=selGW;
+}
+function buildFixtures(){
+  const host=$("#fixtures"); host.innerHTML="";
+  $("#fxHead").textContent="Gameweek "+selGW;
+  const fx=FIXTURES[selGW], ko=KICKOFFS[selGW];
+  fx.forEach((m,i)=>{
+    const n=i+1;
+    const row=document.createElement("div"); row.className="match";
+    row.innerHTML='<div class="mno">'+fmtKO(ko[i])+'</div>'+teamSide(m[0],false)+
+      '<div class="vs"><input type="number" min="0" max="99" inputmode="numeric" data-m="'+n+'" data-s="h" aria-label="'+m[0]+' score"><span class="dash">&ndash;</span><input type="number" min="0" max="99" inputmode="numeric" data-m="'+n+'" data-s="a" aria-label="'+m[1]+' score"></div>'+
+      teamSide(m[1],true);
+    host.appendChild(row);
+  });
+  const name=$("#player").value;
+  const key=name?lsKey(selGW,name):lsKey(selGW,"__draft__");
+  const saved=safeLS(()=>JSON.parse(localStorage.getItem(key)));
+  if(saved) fillPredictions(saved);
+  applyLock(); updateProgress();
+}
+function collectPredictions(){
+  const out={};
+  FIXTURES[selGW].forEach((m,i)=>{
+    const n=i+1;
+    const h=$('#fixtures input[data-m="'+n+'"][data-s="h"]').value;
+    const a=$('#fixtures input[data-m="'+n+'"][data-s="a"]').value;
+    if(h!==""&&a!=="") out[n]=[Number(h),Number(a)];
+  });
+  return out;
+}
+function fillPredictions(obj){
+  FIXTURES[selGW].forEach((m,i)=>{
+    const n=i+1, v=obj&&obj[n];
+    const hi=$('#fixtures input[data-m="'+n+'"][data-s="h"]'), ai=$('#fixtures input[data-m="'+n+'"][data-s="a"]');
+    if(hi)hi.value=v?v[0]:""; if(ai)ai.value=v?v[1]:"";
+  });
+}
+function updateProgress(){
+  const n=Object.keys(collectPredictions()).length;
+  $("#prog").innerHTML="<b>"+n+"</b> of 10 predicted";
+  $("#submitBtn").disabled=!(n===10 && $("#player").value && !locked(selGW));
+}
+function applyLock(){
+  const lk=locked(selGW);
+  $$('#fixtures input').forEach(i=>i.disabled=lk);
+  const b=$("#lockBanner");
+  b.style.display=lk?"block":"none";
+  if(lk)b.textContent="Gameweek "+selGW+" has kicked off, so it's locked. Use the arrows to pick a gameweek that hasn't started yet.";
+  $("#ddl").innerHTML=lk?"This gameweek has started":("Locks at first kick-off<br><b>"+fmtDeadline(selGW)+" UK</b>");
+  $("#gwTag").innerHTML=lk?"Status: <b>locked</b>":("Status: <b>open</b>");
+}
+function gotoGW(gw){
+  const maxGW=currentGW();
+  gw=Math.max(GWS[0],Math.min(maxGW,gw));
+  selGW=gw; $("#gwSel").value=gw;
+  $("#gwPrev").disabled=(gw<=GWS[0]); $("#gwNext").disabled=(gw>=maxGW);
+  buildFixtures();
+}
+
+/* ============================================================
+   BACKEND  (Google Apps Script over JSONP)
+   ============================================================ */
+function jsonp(params){
+  return new Promise((resolve,reject)=>{
+    if(!SCRIPT_URL){reject(new Error("no-url"));return;}
+    const cb="cb_"+Math.random().toString(36).slice(2);
+    const s=document.createElement("script");
+    const q=new URLSearchParams(Object.assign({},params,{callback:cb,t:Date.now()}));
+    let done=false;
+    window[cb]=d=>{done=true;resolve(d);clean();};
+    function clean(){delete window[cb];s.remove();}
+    s.onerror=()=>{if(!done){reject(new Error("net"));clean();}};
+    s.src=SCRIPT_URL+"?"+q.toString();
+    document.body.appendChild(s);
+    setTimeout(()=>{if(!done){reject(new Error("timeout"));clean();}},12000);
+  });
+}
+async function fetchAll(){return (await jsonp({action:"all"})).rows||[];}
+let CLAIMED=[];
+async function loadClaimed(){try{const d=await jsonp({action:"all"});CLAIMED=(d&&d.claimed)||[];updatePinHint();}catch(e){}}
+function updatePinHint(){
+  const el=$("#pinHint"); const name=$("#player").value;
+  if(!name){el.textContent="";return;}
+  el.textContent=CLAIMED.includes(name)?"Enter your PIN to save changes.":"New here — choose a 4-digit PIN when you submit, and remember it.";
+}
+function dedupe(rows){
+  const m={};
+  rows.forEach(r=>{const k=r.stage+"|"+r.name+"|"+(r.type||"prediction");if(!m[k]||new Date(r.ts)>new Date(m[k].ts))m[k]=r;});
+  return Object.values(m);
+}
+
+/* ============================================================
+   SUBMIT
+   ============================================================ */
+function makeCode(name){
+  return btoa(unescape(encodeURIComponent(JSON.stringify({stage:stageOf(selGW),name:name,type:"prediction",data:collectPredictions()}))));
+}
+function setStatus(id,kind,msg){const el=$("#"+id);el.className="status "+kind;el.textContent=msg;}
+function showCode(name){const box=$("#codeOut");box.value=makeCode(name||$("#player").value||"player");box.style.display="block";box.select();}
+async function submit(){
+  const name=$("#player").value, preds=collectPredictions(), pin=($("#pin").value||"").trim();
+  if(!name)return setStatus("predStatus","err","Pick your name first.");
+  if(Object.keys(preds).length!==10)return setStatus("predStatus","err","Fill in all 10 games before submitting.");
+  if(locked(selGW))return setStatus("predStatus","err","Gameweek "+selGW+" is locked — it has kicked off.");
+  const claimed=CLAIMED.includes(name);
+  if(!/^\d{4}$/.test(pin))return setStatus("predStatus","err",claimed?("Enter "+name+"'s 4-digit PIN to save changes."):"Choose a 4-digit PIN to protect your entry — you'll need it to change picks later.");
+  setStatus("predStatus","warn","Sending Gameweek "+selGW+"…");
+  $("#submitBtn").disabled=true;
+  try{
+    const r=await jsonp({action:"submit",stage:stageOf(selGW),name:name,type:"prediction",data:JSON.stringify(preds),pin:pin});
+    if(r&&r.ok){
+      if(!CLAIMED.includes(name))CLAIMED.push(name);
+      updatePinHint();
+      setStatus("predStatus","ok",claimed?("Done — "+name+"'s Gameweek "+selGW+" is updated."):("Done — "+name+"'s Gameweek "+selGW+" is in and your PIN is set. Remember it."));
+    }else if(r&&r.error==="bad_pin"){setStatus("predStatus","err","That PIN doesn't match the one set for "+name+".");}
+    else if(r&&r.error==="pin_required"){setStatus("predStatus","err","Choose a 4-digit PIN to protect your entry.");}
+    else{showCode(name);setStatus("predStatus","warn","Sent, but couldn't confirm"+(r&&r.error?" ("+r.error+")":"")+". Copy the backup code and send it to Scott.");}
+  }catch(e){
+    showCode(name);
+    setStatus("predStatus","err",e.message==="no-url"?"No sheet connected yet. Copy the backup code below and send it to Scott.":"Couldn't reach the sheet. Copy the backup code below and send it to Scott.");
+  }finally{updateProgress();}
+}
+
+/* ============================================================
+   LEADERBOARD  (weekly winner + season table)
+   ============================================================ */
+function scoreOne(pred,res){
+  if(!pred||!res)return 0;
+  if(pred[0]===res[0]&&pred[1]===res[1])return 3;
+  if(Math.sign(pred[0]-pred[1])===Math.sign(res[0]-res[1]))return 1;
+  return 0;
+}
+let BOARD=null;
+async function computeBoard(){
+  const rows=dedupe(await fetchAll());
+  const results={};
+  rows.filter(r=>r.type==="result").forEach(r=>{results[String(r.stage).replace("GW","")]=r.data||{};});
+  const preds=rows.filter(r=>r.type==="prediction");
+  const perGW={}, season={}, entries={}; let totalEntries=0;
+  preds.forEach(r=>{ const gg=String(r.stage).replace("GW",""); entries[gg]=(entries[gg]||0)+1; totalEntries++; });
+  preds.forEach(r=>{
+    const g=String(r.stage).replace("GW","");
+    const res=results[g]; if(!res)return;
+    perGW[g]=perGW[g]||{};
+    const cell=perGW[g][r.name]={pts:0,exact:0,correct:0};
+    Object.keys(r.data||{}).forEach(n=>{
+      if(res[n]){
+        const pr=r.data[n], rs=res[n], pts=scoreOne(pr,rs);
+        cell.pts+=pts;
+        if(pr[0]===rs[0]&&pr[1]===rs[1])cell.exact++;
+        else if(Math.sign(pr[0]-pr[1])===Math.sign(rs[0]-rs[1]))cell.correct++;
+      }
+    });
+    const s=season[r.name]=season[r.name]||{name:r.name,pts:0,exact:0,correct:0,gws:0,wins:0};
+    s.pts+=cell.pts; s.exact+=cell.exact; s.correct+=cell.correct; s.gws++;
+  });
+  Object.keys(perGW).forEach(g=>{
+    if(Object.keys(results[g]||{}).length!==10)return;      // only completed gameweeks award a win
+    const cells=perGW[g];
+    const max=Math.max.apply(null,Object.keys(cells).map(nm=>cells[nm].pts));
+    if(!(max>0))return;
+    Object.keys(cells).forEach(nm=>{if(cells[nm].pts===max&&season[nm])season[nm].wins++;});
+  });
+  return {results,perGW,season,entries,totalEntries};
+}
+function defaultLbGW(){
+  const withRes=Object.keys(BOARD.results).map(Number).filter(g=>Object.keys(BOARD.results[g]).length>0);
+  return withRes.length?Math.max.apply(null,withRes):currentGW();
+}
+async function renderLeaderboard(){
+  $("#seasonTable").innerHTML='<div class="lb-empty">Loading…</div>';
+  try{BOARD=await computeBoard();}
+  catch(e){$("#seasonTable").innerHTML='<div class="lb-empty">'+(SCRIPT_URL?'Could not load the sheet. Try Refresh.':'No sheet connected yet — add the Apps Script URL in the file (see SETUP-PL.md).')+'</div>';return;}
+  renderSeason();
+  if(lbGW===null)lbGW=defaultLbGW();
+  $("#lbGwSel").value=lbGW;
+  renderWeek();
+}
+function renderSeason(){
+  const list=Object.values(BOARD.season).sort((a,b)=>b.pts-a.pts||b.wins-a.wins||b.exact-a.exact);
+  const done=Object.keys(BOARD.results).filter(g=>Object.keys(BOARD.results[g]).length===10).length;
+  $("#lbMeta").textContent=list.length?("Season pot £"+BOARD.totalEntries+" · "+done+" gameweek"+(done===1?"":"s")+" completed · "+list.length+" players"):"";
+  if(!list.length){$("#seasonTable").innerHTML='<div class="lb-empty">No predictions scored yet. Once Gameweek 1 results are in, the table fills up.</div>';return;}
+  let h='<div class="lb-row head"><span>#</span><span>Player</span><span class="mini">GW</span><span class="mini">Wins</span><span class="mini exact">Exact</span><span>Pts</span></div>';
+  list.forEach((p,i)=>{h+='<div class="lb-row"><span class="rank">'+(i+1)+'</span><span class="who">'+p.name+'</span><span class="mini"><b>'+p.gws+'</b></span><span class="mini"><b>'+p.wins+'</b>&#127942;</span><span class="mini exact"><b>'+p.exact+'</b></span><span class="pts">'+p.pts+'</span></div>';});
+  $("#seasonTable").innerHTML=h;
+}
+function renderWeek(){
+  const g=String(lbGW), res=BOARD.results[g]||{}, cells=BOARD.perGW[g]||{};
+  const nRes=Object.keys(res).length, complete=nRes===10;
+  const entrants=BOARD.entries[g]||0;
+  const arr=Object.keys(cells).map(nm=>({name:nm,pts:cells[nm].pts,exact:cells[nm].exact})).sort((a,b)=>b.pts-a.pts||b.exact-a.exact);
+  let win="";
+  if(arr.length&&arr[0].pts>0){
+    const top=arr[0].pts, winners=arr.filter(x=>x.pts===top).map(x=>x.name), many=winners.length>1;
+    win='<div class="winner">'+(complete?('&#127942; Winner'+(many?'s':'')+': '):'Leading: ')+'<b>'+winners.join(" & ")+'</b> — '+top+' pts'+(complete&&entrants?(', '+(many?'share ':'wins ')+'&pound;'+entrants):'')+'</div>';
+  }
+  let rl="";
+  FIXTURES[lbGW].forEach((m,i)=>{
+    const r=res[i+1];
+    rl+='<div class="wk-res"><span>'+m[0]+'</span><span class="sc">'+(r?r[0]+"&ndash;"+r[1]:"&ndash;")+'</span><span>'+m[1]+'</span></div>';
+  });
+  let pt="";
+  if(arr.length){
+    pt='<div class="lb-row head"><span>#</span><span>Player</span><span>Pts</span></div>';
+    arr.forEach((p,i)=>{pt+='<div class="lb-row wk"><span class="rank">'+(i+1)+'</span><span class="who">'+p.name+'</span><span class="pts">'+p.pts+'</span></div>';});
+  }
+  $("#weekPanel").innerHTML='<div class="wk-head">Gameweek '+lbGW+' · '+(nRes?(nRes+'/10 results in'):'no results yet')+' · weekly pot &pound;'+entrants+'</div>'+win+
+    '<div class="wk-grid"><div class="wk-results">'+rl+'</div><div class="wk-table">'+(pt||'<div class="lb-empty">No entries scored for this gameweek yet.</div>')+'</div></div>';
+}
+
+/* ============================================================
+   ORGANISER — results entry (manual fallback)
+   ============================================================ */
+function resGW(){return Number($("#resGwSel").value);}
+function buildResultsForm(){
+  const host=$("#resFixtures"); host.innerHTML="";
+  const gw=resGW(); $("#resHead").textContent="Gameweek "+gw;
+  const fx=FIXTURES[gw], ko=KICKOFFS[gw];
+  fx.forEach((m,i)=>{
+    const n=i+1;
+    const row=document.createElement("div"); row.className="res-match";
+    row.innerHTML='<div class="mno">'+fmtKO(ko[i])+'</div>'+teamSide(m[0],false)+
+      '<div class="vs"><input type="number" min="0" max="99" inputmode="numeric" data-rm="'+n+'" data-s="h"><span class="dash">&ndash;</span><input type="number" min="0" max="99" inputmode="numeric" data-rm="'+n+'" data-s="a"></div>'+
+      teamSide(m[1],true);
+    host.appendChild(row);
+  });
+}
+function collectResults(){
+  const out={}, gw=resGW();
+  FIXTURES[gw].forEach((m,i)=>{
+    const n=i+1;
+    const h=$('#resFixtures input[data-rm="'+n+'"][data-s="h"]').value;
+    const a=$('#resFixtures input[data-rm="'+n+'"][data-s="a"]').value;
+    if(h!==""&&a!=="")out[n]=[Number(h),Number(a)];
+  });
+  return out;
+}
+function fillResults(obj){
+  const gw=resGW();
+  FIXTURES[gw].forEach((m,i)=>{
+    const n=i+1, v=obj&&obj[n];
+    const hi=$('#resFixtures input[data-rm="'+n+'"][data-s="h"]'), ai=$('#resFixtures input[data-rm="'+n+'"][data-s="a"]');
+    if(hi)hi.value=v?v[0]:""; if(ai)ai.value=v?v[1]:"";
+  });
+}
+async function saveResults(){
+  const pin=($("#resPin").value||"").trim();
+  if(!/^\d{4}$/.test(pin))return setStatus("resStatus","err","Enter your organiser PIN (4 digits). The first save sets it.");
+  setStatus("resStatus","warn","Saving Gameweek "+resGW()+" results…");
+  try{
+    const r=await jsonp({action:"submit",stage:stageOf(resGW()),name:"__RESULTS__",type:"result",data:JSON.stringify(collectResults()),pin:pin});
+    if(r&&r.ok)setStatus("resStatus","ok","Results saved for Gameweek "+resGW()+". Hit Refresh on the Leaderboard tab.");
+    else if(r&&r.error==="bad_pin")setStatus("resStatus","err","That organiser PIN is wrong.");
+    else if(r&&r.error==="pin_required")setStatus("resStatus","err","Set a 4-digit organiser PIN.");
+    else setStatus("resStatus","err","Couldn't save"+(r&&r.error?" ("+r.error+")":"")+".");
+  }catch(e){setStatus("resStatus","err",e.message==="no-url"?"No sheet connected yet — add the Apps Script URL in the file.":"Couldn't reach the sheet.");}
+}
+async function loadResults(){
+  setStatus("resStatus","warn","Loading…");
+  try{
+    const rows=dedupe(await fetchAll());
+    const r=rows.find(x=>String(x.stage)===stageOf(resGW())&&x.type==="result");
+    fillResults(r?r.data:{});
+    setStatus("resStatus","ok",r?("Loaded saved results for Gameweek "+resGW()+"."):("No results saved yet for Gameweek "+resGW()+"."));
+  }catch(e){setStatus("resStatus","err","Couldn't reach the sheet.");}
+}
+async function importCode(){
+  const raw=$("#codeIn").value.trim();
+  if(!raw)return setStatus("importStatus","err","Paste a code first.");
+  let obj;
+  try{obj=JSON.parse(decodeURIComponent(escape(atob(raw))));}
+  catch(e){return setStatus("importStatus","err","That code doesn't look right.");}
+  if(!obj.name||!obj.data)return setStatus("importStatus","err","That code is missing a name or predictions.");
+  const adminPin=($("#resPin").value||"").trim();
+  if(!/^\d{4}$/.test(adminPin))return setStatus("importStatus","err","Enter your organiser PIN in the results section above — it authorises importing on someone's behalf.");
+  setStatus("importStatus","warn","Adding "+obj.name+"…");
+  try{
+    const r=await jsonp({action:"submit",stage:obj.stage||stageOf(selGW),name:obj.name,type:obj.type||"prediction",data:JSON.stringify(obj.data),adminPin:adminPin});
+    if(r&&r.ok){setStatus("importStatus","ok","Added "+obj.name+"'s predictions to the sheet.");$("#codeIn").value="";}
+    else if(r&&r.error==="bad_pin")setStatus("importStatus","err","Your organiser PIN is wrong, so the import was blocked.");
+    else setStatus("importStatus","err","Couldn't add it"+(r&&r.error?" ("+r.error+")":"")+".");
+  }catch(e){setStatus("importStatus","err","Couldn't reach the sheet.");}
+}
+
+/* ============================================================
+   TODAY'S PICKS  (read-only; reveals picks only after a gameweek locks)
+   ============================================================ */
+// Fixture kickoff overrides come from the sheet (name __FIXTURES__, type "fixtures"),
+// exactly like results do. Pairings are always the baked ones; only kickoffs can move.
+function parseFixOverrides(rows){ const F={}; rows.forEach(r=>{ if(r.type==="fixtures"){ const g=String(r.stage).replace("GW",""); F[g]=Object.assign(F[g]||{}, r.data||{}); } }); return F; }
+function effectiveMatches(FIXOVR){ FIXOVR=FIXOVR||{}; const out=[]; GWS.forEach(gw=>{ const o=FIXOVR[String(gw)]||{}; (FIXTURES[gw]||[]).forEach((m,i)=>{ out.push({gw:gw,idx:i+1,home:m[0],away:m[1],ms:Date.parse(o[i+1]||KICKOFFS[gw][i])}); }); }); return out; }
+function ukDayKey(ms){ return new Date(ms).toLocaleDateString("en-CA",{timeZone:"Europe/London"}); }
+function prettyDay(key){ return new Date(key+"T12:00:00Z").toLocaleDateString("en-GB",{weekday:"long",day:"numeric",month:"long"}); }
+function ukClock(ms){ return new Date(ms).toLocaleTimeString("en-GB",{timeZone:"Europe/London",hour:"2-digit",minute:"2-digit"}); }
+
+// Pure model so the logic can be tested. Picks are only included for LOCKED gameweeks,
+// so nothing reveals in the page source before the deadline.
+function buildTodayModel(rows, nowMs, lockedFn){
+  lockedFn=lockedFn||locked;
+  const PREDS={}, RESULTS={}, FIXOVR=parseFixOverrides(rows);
+  rows.forEach(r=>{ const g=String(r.stage).replace("GW","");
+    if(r.type==="result"){ RESULTS[g]=Object.assign(RESULTS[g]||{}, r.data||{}); }
+    else if(r.type==="prediction"){ (PREDS[r.name]=PREDS[r.name]||{})[g]=Object.assign(PREDS[r.name][g]||{}, r.data||{}); } });
+  const byDay={}; effectiveMatches(FIXOVR).forEach(mt=>{ const k=ukDayKey(mt.ms); (byDay[k]=byDay[k]||[]).push(mt); });
+  const todayKey=ukDayKey(nowMs);
+  const dayKeys=Object.keys(byDay).sort();
+  let key = byDay[todayKey] ? todayKey : (dayKeys.filter(k=>k>todayKey)[0] || dayKeys[dayKeys.length-1] || null);
+  if(!key) return {key:null, isFuture:false, matches:[], players:[]};
+  const players=Object.keys(PREDS).sort((a,b)=>a.localeCompare(b));
+  const matches=byDay[key].slice().sort((a,b)=>a.ms-b.ms).map(mt=>{
+    const lk=lockedFn(mt.gw);
+    const res=(RESULTS[mt.gw]||{})[mt.idx]||null;
+    let picks=null;
+    if(lk){ picks={}; players.forEach(nm=>{ const p=(PREDS[nm]||{})[mt.gw]&&(PREDS[nm][mt.gw]||{})[mt.idx]; if(p)picks[nm]=p; }); }
+    return {gw:mt.gw, idx:mt.idx, home:mt.home, away:mt.away, ms:mt.ms, res:res, locked:lk, picks:picks};
+  });
+  return {key:key, isFuture:key!==todayKey, matches:matches, players:players};
+}
+
+async function renderToday(){
+  const host=$("#todayOut");
+  host.innerHTML='<div class="lb-empty">Loading…</div>';
+  let rows;
+  try{ rows=dedupe(await fetchAll()); }
+  catch(e){ host.innerHTML='<div class="lb-empty">'+(SCRIPT_URL?'Could not load the sheet. Try Refresh.':'No sheet connected yet.')+'</div>'; return; }
+  const model=buildTodayModel(rows, Date.now());
+  if(!model.key){ host.innerHTML='<div class="lb-empty">No fixtures found.</div>'; return; }
+  let html='<div class="today-head"><h3>'+prettyDay(model.key)+'</h3><span>'+model.matches.length+(model.matches.length===1?' match':' matches')+(model.isFuture?' · next match day':'')+'</span></div>';
+  model.matches.forEach(mt=>{
+    const ft=!!mt.res;
+    const ch=(TEAM_COLORS[mt.home]||'#888'), ca=(TEAM_COLORS[mt.away]||'#888');
+    const scoreMid = ft ? (mt.res[0]+'<span class="v">&ndash;</span>'+mt.res[1]) : '<span class="v">v</span>';
+    let chips='';
+    if(!mt.locked){ chips='<span class="tp-hidden">Predictions reveal when Gameweek '+mt.gw+' locks, 7:30pm Friday.</span>'; }
+    else if(!model.players.length){ chips='<span class="tp-none">No predictions in yet.</span>'; }
+    else {
+      model.players.forEach(nm=>{
+        const p=mt.picks[nm];
+        if(!p){ chips+='<span class="chip miss">'+nm+'<span class="s">&ndash;</span></span>'; return; }
+        let cls='';
+        if(ft){ const ex=(p[0]===mt.res[0]&&p[1]===mt.res[1]); const sg=(x,y)=>(x>y)-(x<y);
+          cls = ex?' b3':(sg(p[0],p[1])===sg(mt.res[0],mt.res[1])?' b1':' b0'); }
+        chips+='<span class="chip'+cls+'">'+nm+'<span class="s">'+p[0]+'&ndash;'+p[1]+'</span></span>';
+      });
+    }
+    html+='<div class="mcard"><div class="mtop"><span class="mtime">'+ukClock(mt.ms)+' UK</span><span class="mmeta">GW'+mt.gw+'</span>'+(ft?'<span class="tag ft">Full time</span>':'')+'</div>'+
+      '<div class="fixline"><div class="tp-team">'+badgeHTML(mt.home)+'<span class="tn">'+mt.home+'</span></div><div class="tp-score">'+scoreMid+'</div><div class="tp-team a">'+badgeHTML(mt.away)+'<span class="tn">'+mt.away+'</span></div></div>'+
+      '<div class="picks">'+chips+'</div></div>';
+  });
+  host.innerHTML=html;
+}
+
+/* ============================================================
+   THIS WEEK  (whole gameweek: everyone's picks + scores)
+   ============================================================ */
+function currentMatchGW(){ let last=null; GWS.forEach(g=>{ if(locked(g)) last=g; }); return last||currentGW(); }
+function buildWeekModel(rows, gw, lockedFn){
+  lockedFn=lockedFn||locked;
+  const PREDS={}, RESULTS={}, FIXOVR=parseFixOverrides(rows);
+  rows.forEach(r=>{ const g=String(r.stage).replace("GW","");
+    if(r.type==="result"){ RESULTS[g]=Object.assign(RESULTS[g]||{}, r.data||{}); }
+    else if(r.type==="prediction"){ (PREDS[r.name]=PREDS[r.name]||{})[g]=Object.assign(PREDS[r.name][g]||{}, r.data||{}); } });
+  const gstr=String(gw), lk=lockedFn(gw), ovr=FIXOVR[gstr]||{};
+  const players=Object.keys(PREDS).sort((a,b)=>a.localeCompare(b));
+  const matches=(FIXTURES[gw]||[]).map((m,i)=>{
+    const idx=i+1, res=(RESULTS[gstr]||{})[idx]||null;
+    let picks=null;
+    if(lk){ picks={}; players.forEach(nm=>{ const p=(PREDS[nm]||{})[gstr]&&(PREDS[nm][gstr]||{})[idx]; if(p)picks[nm]=p; }); }
+    return {gw:gw, idx:idx, home:m[0], away:m[1], ms:Date.parse(ovr[idx]||KICKOFFS[gw][i]), res:res, locked:lk, picks:picks};
+  });
+  return {gw:gw, locked:lk, matches:matches, players:players};
+}
+async function renderWeekPicks(){
+  const host=$("#weekOut");
+  host.innerHTML='<div class="lb-empty">Loading…</div>';
+  let rows;
+  try{ rows=dedupe(await fetchAll()); }
+  catch(e){ host.innerHTML='<div class="lb-empty">'+(SCRIPT_URL?'Could not load the sheet. Try Refresh.':'No sheet connected yet.')+'</div>'; return; }
+  if(wkGW===null) wkGW=currentMatchGW();
+  $("#weekGwSel").value=wkGW;
+  const model=buildWeekModel(rows, wkGW);
+  const done=model.matches.filter(x=>x.res).length;
+  let html='<div class="today-head"><h3>Gameweek '+model.gw+'</h3><span>'+done+' of 10 played'+(model.locked?'':' · picks reveal after 7:30pm Friday')+'</span></div>';
+  model.matches.forEach(mt=>{
+    const ft=!!mt.res;
+    const ch=(TEAM_COLORS[mt.home]||'#888'), ca=(TEAM_COLORS[mt.away]||'#888');
+    const scoreMid = ft ? (mt.res[0]+'<span class="v">&ndash;</span>'+mt.res[1]) : '<span class="v">v</span>';
+    let chips='';
+    if(!mt.locked){ chips='<span class="tp-hidden">Predictions reveal when Gameweek '+mt.gw+' locks, 7:30pm Friday.</span>'; }
+    else if(!model.players.length){ chips='<span class="tp-none">No predictions in yet.</span>'; }
+    else { model.players.forEach(nm=>{ const p=mt.picks[nm];
+      if(!p){ chips+='<span class="chip miss">'+nm+'<span class="s">&ndash;</span></span>'; return; }
+      let cls=''; if(ft){ const ex=(p[0]===mt.res[0]&&p[1]===mt.res[1]); const sg=(x,y)=>(x>y)-(x<y); cls=ex?' b3':(sg(p[0],p[1])===sg(mt.res[0],mt.res[1])?' b1':' b0'); }
+      chips+='<span class="chip'+cls+'">'+nm+'<span class="s">'+p[0]+'&ndash;'+p[1]+'</span></span>'; }); }
+    html+='<div class="mcard"><div class="mtop"><span class="mtime">'+ukClock(mt.ms)+' UK</span><span class="mmeta">GW'+mt.gw+'</span>'+(ft?'<span class="tag ft">Full time</span>':'')+'</div>'+
+      '<div class="fixline"><div class="tp-team">'+badgeHTML(mt.home)+'<span class="tn">'+mt.home+'</span></div><div class="tp-score">'+scoreMid+'</div><div class="tp-team a">'+badgeHTML(mt.away)+'<span class="tn">'+mt.away+'</span></div></div>'+
+      '<div class="picks">'+chips+'</div></div>';
+  });
+  host.innerHTML=html;
+}
+
+/* ============================================================
+   WIRING
+   ============================================================ */
+function activateTab(name){
+  const b=document.querySelector('nav.tabs button[data-tab="'+name+'"]'); if(!b)return;
+  $$('nav.tabs button').forEach(x=>x.classList.remove("on"));
+  $$('.view').forEach(v=>v.classList.remove("on"));
+  b.classList.add("on"); $("#"+name).classList.add("on");
+  if(name==="leaderboard")renderLeaderboard();
+  if(name==="today")renderToday();
+  if(name==="week")renderWeekPicks();
+  if(name==="organiser"){buildResultsForm();loadResults();}
+}
+function init(){
+  buildPlayers(); buildGwSelectors();
+  gotoGW(selGW);
+
+  $("#gwPrev").addEventListener("click",()=>gotoGW(selGW-1));
+  $("#gwNext").addEventListener("click",()=>gotoGW(selGW+1));
+  $("#gwSel").addEventListener("change",()=>gotoGW(Number($("#gwSel").value)));
+
+  $("#player").addEventListener("change",()=>{
+    const name=$("#player").value;
+    const saved=name?safeLS(()=>JSON.parse(localStorage.getItem(lsKey(selGW,name)))):null;
+    if(saved&&Object.keys(saved).length)fillPredictions(saved);
+    else fillPredictions({});
+    $("#pin").value=""; updatePinHint(); updateProgress();
+  });
+  $("#fixtures").addEventListener("input",()=>{
+    const name=$("#player").value;
+    safeLS(()=>localStorage.setItem(lsKey(selGW,name||"__draft__"),JSON.stringify(collectPredictions())));
+    updateProgress();
+  });
+  $("#submitBtn").addEventListener("click",submit);
+  $("#codeBtn").addEventListener("click",()=>showCode($("#player").value));
+  $("#refreshLb").addEventListener("click",renderLeaderboard);
+  $("#refreshToday").addEventListener("click",renderToday);
+  $("#refreshWeek").addEventListener("click",renderWeekPicks);
+  $("#weekGwSel").addEventListener("change",()=>{wkGW=Number($("#weekGwSel").value);renderWeekPicks();});
+  $("#lbGwSel").addEventListener("change",()=>{lbGW=Number($("#lbGwSel").value);if(BOARD)renderWeek();});
+  $("#resGwSel").addEventListener("change",()=>{buildResultsForm();loadResults();});
+  $("#saveRes").addEventListener("click",saveResults);
+  $("#loadRes").addEventListener("click",loadResults);
+  $("#importBtn").addEventListener("click",importCode);
+
+  document.querySelectorAll('nav.tabs button').forEach(b=>b.addEventListener("click",()=>{
+    activateTab(b.dataset.tab);
+    try{history.replaceState(null,"","#"+b.dataset.tab);}catch(e){}
+  }));
+  const h=(location.hash||"").slice(1);
+  if(h&&document.querySelector('nav.tabs button[data-tab="'+h+'"]'))activateTab(h);
+
+  loadClaimed();
+}
+init();
+</script>
+</body>
+</html>
